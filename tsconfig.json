@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "lib": ["dom", "esnext", "DOM.Iterable"],
+    "allowImportingTsExtensions": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "declaration": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "importHelpers": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "rootDir": ".",
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@components": ["src/components"],
+      "@hooks/*": ["src/hooks/*"],
+      "@hooks": ["src/hooks"],
+      "@definitions/*": ["src/definitions/*"],
+      "@definitions": ["src/definitions"],
+      "@contexts/*": ["src/contexts/*"],
+      "@contexts": ["src/contexts"],
+      "@test/*": ["test/*"],
+      "@test": ["test"]
+    }
+  },
+  "include": ["src"]
+}
