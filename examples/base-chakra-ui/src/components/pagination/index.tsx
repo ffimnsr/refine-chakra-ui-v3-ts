@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import { HStack, Button, Box } from "@chakra-ui/react"
 import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react"
-import { usePagination } from "@refinedev/chakra-ui"
+import { usePagination } from "@refinedev/chakra-ui-v3"
 
 import { IconButton } from "@chakra-ui/react"
 
@@ -23,7 +23,7 @@ export const Pagination: FC<PaginationProps> = ({
 
   return (
     <Box display="flex" justifyContent="flex-end">
-      <HStack my="3" spacing="1">
+      <HStack my="3" gap="1">
         {pagination?.prev && (
           <IconButton
             aria-label="previous page"

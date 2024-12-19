@@ -1,6 +1,4 @@
 import type { Plugin } from "esbuild"
-import * as fs from "fs"
-import path from "path"
 
 const JS_EXTENSIONS = new Set(["js", "cjs", "mjs"])
 

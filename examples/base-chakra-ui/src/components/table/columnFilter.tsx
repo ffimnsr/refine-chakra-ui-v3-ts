@@ -1,16 +1,15 @@
 import React, { useState } from "react"
 import {
   Input,
-  Menu,
   IconButton,
-  MenuButton,
-  MenuList,
   VStack,
   HStack,
+  Button,
 } from "@chakra-ui/react"
 import { IconFilter, IconX, IconCheck } from "@tabler/icons-react"
 
 import type { ColumnButtonProps } from "../../interfaces"
+import { MenuContent, MenuRoot, MenuTrigger } from "../ui/menu"
 
 export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
   // eslint-disable-next-line
@@ -66,20 +65,24 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
   }
 
   return (
-    <Menu isOpen={!!state} onClose={close}>
-      <MenuButton
-        onClick={open}
-        as={IconButton}
-        aria-label="Options"
-        icon={<IconFilter size="16" />}
-        variant="ghost"
-        size="xs"
-      />
-      <MenuList p="2">
+    <MenuRoot open={!!state} onExitComplete={close}>
+      <MenuTrigger asChild>
+        <Button
+          onClick={open}
+          as={IconButton}
+          aria-label="Options"
+          variant="ghost"
+          size="xs"
+        >
+          <IconFilter size="16" />
+        </Button>
+      </MenuTrigger>
+      <MenuContent>
         {!!state && (
+
           <VStack align="flex-start">
             {renderFilterElement()}
-            <HStack spacing="1">
+            <HStack gap="1">
               <IconButton
                 aria-label="Clear"
                 size="sm"
@@ -99,7 +102,7 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
             </HStack>
           </VStack>
         )}
-      </MenuList>
-    </Menu>
+      </MenuContent>
+    </MenuRoot>
   )
 }

@@ -1,9 +1,6 @@
 import { useEffect } from "react"
-import { Edit } from "@refinedev/chakra-ui"
+import { Edit } from "@refinedev/chakra-ui-v3"
 import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Input,
   Select,
   Textarea,

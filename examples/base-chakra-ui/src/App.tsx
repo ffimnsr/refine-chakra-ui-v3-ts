@@ -20,7 +20,7 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <GitHubBanner />
-      <ChakraProvider theme={refineTheme}>
+      <ChakraProvider value={refineTheme}>
         <Refine
           notificationProvider={useNotificationProvider()}
           routerProvider={routerProvider}

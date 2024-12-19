@@ -8,19 +8,14 @@ import {
   EditButton,
   DeleteButton,
   DateField,
-} from "@refinedev/chakra-ui"
+} from "@refinedev/chakra-ui-v3"
 
 import {
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   HStack,
   Text,
   Select,
+  Container,
 } from "@chakra-ui/react"
 
 import { ColumnFilter, ColumnSorter } from "../../components/table"
@@ -163,45 +158,45 @@ export const PostList: React.FC = () => {
 
   return (
     <List>
-      <TableContainer whiteSpace="pre-line">
-        <Table variant="simple">
-          <Thead>
+      <Container whiteSpace="pre-line">
+        <Table.Root variant="line">
+          <Table.Header>
             {getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
+              <Table.Row key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <Th key={header.id}>
+                  <Table.ColumnHeader key={header.id}>
                     {!header.isPlaceholder && (
-                      <HStack spacing="2">
+                      <HStack gap="2">
                         <Text>
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
                         </Text>
-                        <HStack spacing="2">
+                        <HStack gap="2">
                           <ColumnSorter column={header.column} />
                           <ColumnFilter column={header.column} />
                         </HStack>
                       </HStack>
                     )}
-                  </Th>
+                  </Table.ColumnHeader>
                 ))}
-              </Tr>
+              </Table.Row>
             ))}
-          </Thead>
-          <Tbody>
+          </Table.Header>
+          <Table.Body>
             {getRowModel().rows.map((row) => (
-              <Tr key={row.id}>
+              <Table.Row key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <Td key={cell.id}>
+                  <Table.Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
+                  </Table.Cell>
                 ))}
-              </Tr>
+              </Table.Row>
             ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+          </Table.Body>
+        </Table.Root>
+      </Container>
       <Pagination
         current={current}
         pageCount={pageCount}
