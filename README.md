@@ -1,39 +1,6 @@
-<div align="center" style="margin: 30px;">
-    <a href="https://refine.dev">
-    <img alt="refine logo" src="https://refine.ams3.cdn.digitaloceanspaces.com/readme/refine-readme-banner.png">
-    </a>
-</div>
+# Refine Plugin for Chakra UI v3
 
-<br/>
-
-<div align="center">
-    <a href="https://refine.dev">Home Page</a> |
-    <a href="https://discord.gg/refine">Discord</a> |
-    <a href="https://refine.dev/examples/">Examples</a> | 
-    <a href="https://refine.dev/blog/">Blog</a> | 
-    <a href="https://refine.dev/docs/">Documentation</a>
-
-<br/>   
-<br/>
-
-[![Discord](https://img.shields.io/discord/837692625737613362.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/refine)
-[![Twitter Follow](https://img.shields.io/twitter/follow/refine_dev?style=social)](https://twitter.com/refine_dev)
-
-<a href="https://www.producthunt.com/posts/refine-3?utm_source=badge-top-post-badge&utm_medium=badge&utm_souce=badge-refine&#0045;3" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/top-post-badge.svg?post_id=362220&theme=light&period=daily" alt="refine - 100&#0037;&#0032;open&#0032;source&#0032;React&#0032;framework&#0032;to&#0032;build&#0032;web&#0032;apps&#0032;3x&#0032;faster | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
-
-</div>
-
-<br/>
-
-w
-
-<div align="center">Refine is an open-source, headless React framework for developers building enterprise internal tools, admin panels, dashboards, B2B applications.
-
-<br/>
-
-It eliminates repetitive tasks in CRUD operations and provides industry-standard solutions for critical project components like **authentication**, **access control**, **routing**, **networking**, **state management**, and **i18n**.
-
-</div>
+This repository contains a plugin for integrating Chakra UI v3 with Refine, an open-source, headless React framework for building enterprise internal tools, admin panels, dashboards, and B2B applications. This plugin provides seamless integration, allowing you to leverage the powerful and accessible components of Chakra UI v3 within your Refine projects.
 
 ## Chakra UI integration for Refine
 
@@ -45,10 +12,10 @@ Refine has connectors for 15+ backend services, including REST API, [GraphQL](ht
 
 ## Installation
 
-To use Refine with Chakra UI, you need to install the following package `@refinedev/chakra-ui` along with the Chakra UI packages:
+To use Refine with Chakra UI, you need to install the following package `@ffimnsr/refine-chakra-ui-v3` along with the Chakra UI packages:
 
 ```sh
-npm install @refinedev/chakra-ui @chakra-ui/react @emotion/react @emotion/styled framer-motion
+npm install @ffimnsr/refine-chakra-ui-v3 @chakra-ui/react
 ```
 
 ## ⚡ Try Refine
@@ -70,102 +37,52 @@ Or you can create a new project on your browser:
 Here's Refine in action, the below code is an example of a simple CRUD application using Refine + React Router + Material UI:
 
 ```tsx
-import React from "react";
-import { Refine, useMany } from "@refinedev/core";
-import { ThemedLayoutV2 } from "@refinedev/mui";
-import dataProvider from "@refinedev/simple-rest";
-import routerBindings from "@refinedev/react-router-v6";
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
+import { GitHubBanner, Refine, WelcomePage } from "@refinedev/core"
+import {
+  useNotificationProvider,
+  RefineThemes,
+  ErrorComponent,
+} from "@refinedev/chakra-ui-v3"
+import { BrowserRouter, Routes, Route } from "react-router"
+import { ChakraProvider } from "@chakra-ui/react"
+import dataProvider from "@refinedev/simple-rest"
+import routerProvider, {
+  UnsavedChangesNotifier,
+  DocumentTitleHandler,
+} from "@refinedev/react-router"
 
-import CssBaseline from "@mui/material/CssBaseline";
-
-export default function App() {
+function App() {
   return (
     <BrowserRouter>
-      <CssBaseline />
-      <Refine
-        dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
-        routerProvider={routerBindings}
-        resources={[
-          {
-            name: "products",
-            list: "/products",
-          },
-        ]}
-      >
-        <Routes>
-          <Route
-            element={
-              <ThemedLayoutV2>
-                <Outlet />
-              </ThemedLayoutV2>
-            }
-          >
-            <Route path="/products">
-              <Route index element={<ProductList />} />
-            </Route>
-          </Route>
-        </Routes>
-      </Refine>
+      <GitHubBanner />
+      <ChakraProvider value={RefineThemes.Default}>
+        <Refine
+          routerProvider={routerProvider}
+          dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
+          notificationProvider={useNotificationProvider}
+          options={{
+            syncWithLocation: true,
+            warnWhenUnsavedChanges: true,
+          }}
+        >
+          <Routes>
+            <Route index element={<WelcomePage />} />
+
+            <Route path="*" element={<ErrorComponent />} />
+          </Routes>
+          <UnsavedChangesNotifier />
+          <DocumentTitleHandler />
+        </Refine>
+      </ChakraProvider>
     </BrowserRouter>
-  );
+  )
 }
 
-// src/pages/products/list.tsx
+export default App
 
-import { List, useDataGrid, DateField } from "@refinedev/mui";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-
-export const ProductList = () => {
-  const { dataGridProps } = useDataGrid();
-
-  const { data: categories, isLoading } = useMany({
-    resource: "categories",
-    ids:
-      dataGridProps?.rows?.map((item) => item?.category?.id).filter(Boolean) ??
-      [],
-    queryOptions: {
-      enabled: !!dataGridProps?.rows,
-    },
-  });
-
-  const columns = React.useMemo<GridColDef[]>(
-    () => [
-      { field: "id", headerName: "ID", type: "number" },
-      { field: "name", flex: 1, headerName: "Name" },
-      {
-        field: "category",
-        flex: 1,
-        headerName: "Category",
-        renderCell: ({ value }) =>
-          isLoading
-            ? "Loading..."
-            : categories?.data?.find((item) => item.id === value?.id)?.title,
-      },
-      {
-        field: "createdAt",
-        flex: 1,
-        headerName: "Created at",
-        renderCell: ({ value }) => <DateField value={value} />,
-      },
-    ],
-    [categories?.data, isLoading],
-  );
-
-  return (
-    <List>
-      <DataGrid {...dataGridProps} columns={columns} autoHeight />
-    </List>
-  );
-};
 ```
-
-The result will look like this:
-
-[![Refine + Material UI Example](https://refine.ams3.cdn.digitaloceanspaces.com/assets/refine-mui-simple-example-screenshot-rounded.webp)](https://refine.new/preview/c85442a8-8df1-4101-a09a-47d3ca641798)
 
 ## Documentation
 
-- For more detailed information and usage, refer to the [Refine Chakra UI documentation](https://refine.dev/docs/ui-integrations/chakra-ui/introduction).
 - [Refer to documentation for more info about refine](https://refine.dev/docs).
 - [Step up to refine tutorials](https://refine.dev/tutorial).
