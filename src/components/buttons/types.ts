@@ -12,13 +12,13 @@ import type {
   RefineSaveButtonProps,
   RefineShowButtonProps,
 } from "@refinedev/ui-types"
-import type { IconProps } from "@tabler/icons-react"
+import type { IconBaseProps } from "react-icons"
 
 export type ShowButtonProps = Omit<
   RefineShowButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"
@@ -27,14 +27,14 @@ export type ShowButtonProps = Omit<
 export type SaveButtonProps = RefineSaveButtonProps<
   ButtonProps,
   {
-    svgIconProps?: Omit<IconProps, "ref">
+    svgIconProps?: Omit<IconBaseProps, "ref">
   }
 >
 
 export type RefreshButtonProps = RefineRefreshButtonProps<
   ButtonProps,
   {
-    svgIconProps?: Omit<IconProps, "ref">
+    svgIconProps?: Omit<IconBaseProps, "ref">
   }
 >
 
@@ -42,7 +42,7 @@ export type ListButtonProps = Omit<
   RefineListButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"
@@ -52,14 +52,14 @@ export type ImportButtonProps = RefineImportButtonProps<
   ButtonProps,
   {
     inputProps: UseImportInputPropsType
-    svgIconProps?: Omit<IconProps, "ref">
+    svgIconProps?: Omit<IconBaseProps, "ref">
   }
 >
 
 export type ExportButtonProps = RefineExportButtonProps<
   ButtonProps,
   {
-    svgIconProps?: Omit<IconProps, "ref">
+    svgIconProps?: Omit<IconBaseProps, "ref">
   }
 >
 
@@ -67,7 +67,7 @@ export type EditButtonProps = Omit<
   RefineEditButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"
@@ -77,7 +77,7 @@ export type DeleteButtonProps = Omit<
   RefineDeleteButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"
@@ -87,7 +87,7 @@ export type CloneButtonProps = Omit<
   RefineCloneButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"
@@ -97,7 +97,7 @@ export type CreateButtonProps = Omit<
   RefineCreateButtonProps<
     ButtonProps,
     {
-      svgIconProps?: Omit<IconProps, "ref">
+      svgIconProps?: Omit<IconBaseProps, "ref">
     }
   >,
   "ignoreAccessControlProvider"

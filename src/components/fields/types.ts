@@ -12,15 +12,15 @@ import type {
   RefineFieldTextProps,
   RefineFieldUrlProps,
 } from "@refinedev/ui-types"
-import type { IconProps } from "@tabler/icons-react"
+import type { IconBaseProps } from "react-icons"
 import type { ConfigType } from "dayjs"
 import type { TooltipProps } from "@components/ui/tooltip"
 import type { TagProps } from "@components/ui/tag"
 
 export type BooleanFieldProps = RefineFieldBooleanProps<
   unknown,
-  Omit<TooltipProps, "label" | "children">,
-  { svgIconProps?: Omit<IconProps, "ref"> }
+  Omit<TooltipProps, "label" | "children" | "content">,
+  { svgIconProps?: Omit<IconBaseProps, "ref"> }
 >
 
 export type DateFieldProps = RefineFieldDateProps<ConfigType, TextProps>

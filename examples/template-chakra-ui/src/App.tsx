@@ -3,7 +3,7 @@ import {
   useNotificationProvider,
   RefineThemes,
   ErrorComponent,
-} from "@refinedev/chakra-ui"
+} from "@refinedev/chakra-ui-v3"
 import { BrowserRouter, Routes, Route } from "react-router"
 import { ChakraProvider } from "@chakra-ui/react"
 import dataProvider from "@refinedev/simple-rest"
@@ -16,7 +16,7 @@ function App() {
   return (
     <BrowserRouter>
       <GitHubBanner />
-      <ChakraProvider theme={RefineThemes.Blue}>
+      <ChakraProvider value={RefineThemes.Default}>
         <Refine
           routerProvider={routerProvider}
           dataProvider={dataProvider("https://api.fake-rest.refine.dev")}

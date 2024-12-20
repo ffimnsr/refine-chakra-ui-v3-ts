@@ -9,17 +9,16 @@ import {
   useRouterType,
 } from "@refinedev/core"
 import type { RefineBreadcrumbProps } from "@refinedev/ui-types"
-import {
-  Breadcrumb as ChakraBreadcrumb,
-  type BreadcrumbRootProps as ChakraBreadcrumbProps,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from "@chakra-ui/react"
 
-import { IconHome } from "@tabler/icons-react"
+import { LuHouse } from "react-icons/lu"
+import {
+  BreadcrumbRoot,
+  BreadcrumbLink,
+  BreadcrumbCurrentLink,
+  type BreadcrumbRootProps as ChakraBreadcrumbProps,
+} from "@components/ui/breadcrumb"
 
 export type BreadcrumbProps = RefineBreadcrumbProps<ChakraBreadcrumbProps>
-
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   breadcrumbProps,
   showHome = true,
@@ -42,28 +41,30 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({
   const rootRouteResource = matchResourceFromRoute("/", resources)
 
   return (
-    <ChakraBreadcrumb.Root mb="3" {...breadcrumbProps}>
+    <BreadcrumbRoot mb="3" {...breadcrumbProps}>
       {showHome && (hasDashboard || rootRouteResource?.found) && (
-        <BreadcrumbItem>
+        <BreadcrumbLink asChild>
           <ActiveLink to="/">
-            {rootRouteResource?.resource?.meta?.icon ?? <IconHome size={20} />}
+            {rootRouteResource?.resource?.meta?.icon ?? <LuHouse size={20} />}
           </ActiveLink>
-        </BreadcrumbItem>
+        </BreadcrumbLink>
       )}
       {breadcrumbs.map(({ label, icon, href }) => {
         return (
-          <BreadcrumbItem key={label}>
-            {!hideIcons && icon}
+          <React.Fragment key={label}>
             {href ? (
-              <BreadcrumbLink ml={2} as={ActiveLink} href={href}>
-                {label}
+              <BreadcrumbLink ml={2} asChild>
+                <ActiveLink to={href}>
+                  {!hideIcons && icon}
+                  {label}
+                </ActiveLink>
               </BreadcrumbLink>
             ) : (
-              <BreadcrumbLink ml={2}>{label}</BreadcrumbLink>
+              <BreadcrumbCurrentLink ml={2}>{label}</BreadcrumbCurrentLink>
             )}
-          </BreadcrumbItem>
+          </React.Fragment>
         )
       })}
-    </ChakraBreadcrumb.Root>
+    </BreadcrumbRoot>
   )
 }

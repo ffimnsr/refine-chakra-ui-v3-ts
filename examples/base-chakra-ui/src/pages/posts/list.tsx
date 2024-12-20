@@ -10,17 +10,15 @@ import {
   DateField,
 } from "@refinedev/chakra-ui-v3"
 
-import {
-  Table,
-  HStack,
-  Text,
-  Select,
-  Container,
-} from "@chakra-ui/react"
+import { Table, HStack, Text, Select, Container } from "@chakra-ui/react"
 
 import { ColumnFilter, ColumnSorter } from "../../components/table"
 import { Pagination } from "../../components/pagination"
 import type { FilterElementProps, ICategory, IPost } from "../../interfaces"
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "../../components/ui/native-select"
 
 export const PostList: React.FC = () => {
   const columns = React.useMemo<ColumnDef<IPost>[]>(
@@ -46,16 +44,17 @@ export const PostList: React.FC = () => {
         meta: {
           filterElement: function render(props: FilterElementProps) {
             return (
-              <Select
-                borderRadius="md"
-                size="sm"
-                placeholder="All Status"
-                {...props}
-              >
-                <option value="published">published</option>
-                <option value="draft">draft</option>
-                <option value="rejected">rejected</option>
-              </Select>
+              <NativeSelectRoot size="sm">
+                <NativeSelectField
+                  borderRadius="md"
+                  {...props}
+                  placeholder="Select Post Status"
+                >
+                  <option value="published">published</option>
+                  <option value="draft">draft</option>
+                  <option value="rejected">rejected</option>
+                </NativeSelectField>
+              </NativeSelectRoot>
             )
           },
           filterOperator: "eq",

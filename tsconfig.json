@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "module": "esnext",
-    "lib": ["dom", "esnext", "DOM.Iterable"],
+    "module": "ESNext",
+    "lib": ["DOM", "ESNext", "DOM.Iterable"],
+    "target": "ESNext",
     "allowImportingTsExtensions": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
@@ -9,7 +10,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "importHelpers": false,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,

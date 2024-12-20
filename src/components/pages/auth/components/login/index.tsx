@@ -79,7 +79,7 @@ export const LoginPage: React.FC<LoginProps> = ({
             {providers.map((provider) => (
               <Button
                 key={provider.name}
-                variant="outline"
+                variant="subtle"
                 width="full"
                 fontSize="sm"
                 onClick={() =>
@@ -106,16 +106,14 @@ export const LoginPage: React.FC<LoginProps> = ({
 
   const PageTitle =
     title === false ? null : (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "32px",
-          fontSize: "20px",
-        }}
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginBottom="32px"
+        fontSize="20px"
       >
         {title ?? <ThemedTitleV2 collapsed={false} />}
-      </div>
+      </Box>
     )
 
   const allContentProps = { ...cardProps, ...contentProps }
@@ -154,7 +152,7 @@ export const LoginPage: React.FC<LoginProps> = ({
           >
             <Input
               id="email"
-              autoComplete="current-password"
+              autoComplete="email"
               placeholder="Email"
               type="text"
               {...register("email", {
@@ -182,6 +180,7 @@ export const LoginPage: React.FC<LoginProps> = ({
             <Input
               id="password"
               type="password"
+              autoComplete="current-password"
               placeholder="Password"
               {...register("password", {
                 required: translate(
@@ -205,15 +204,13 @@ export const LoginPage: React.FC<LoginProps> = ({
           <Box mt="6">
             <HStack justifyContent="space-between" fontSize="12px">
               {forgotPasswordLink ?? (
-                <ChakraLink
-                  as={Link}
-                  color={importantTextColor}
-                  href="/forgot-password"
-                >
-                  {translate(
-                    "pages.login.buttons.forgotPassword",
-                    "Forgot password?",
-                  )}
+                <ChakraLink color={importantTextColor} asChild>
+                  <Link to="/forgot-password">
+                    {translate(
+                      "pages.login.buttons.forgotPassword",
+                      "Forgot password?",
+                    )}
+                  </Link>
                 </ChakraLink>
               )}
               {registerLink ?? (
@@ -227,11 +224,12 @@ export const LoginPage: React.FC<LoginProps> = ({
                   <ChakraLink
                     color={importantTextColor}
                     ml="1"
-                    as={Link}
                     fontWeight="bold"
-                    href="/register"
+                    asChild
                   >
-                    {translate("pages.login.register", "Sign up")}
+                    <Link to="/register">
+                      {translate("pages.login.register", "Sign up")}
+                    </Link>
                   </ChakraLink>
                 </Box>
               )}
@@ -251,11 +249,12 @@ export const LoginPage: React.FC<LoginProps> = ({
           <ChakraLink
             color={importantTextColor}
             ml="1"
-            as={Link}
             fontWeight="bold"
-            href="/register"
+            asChild
           >
-            {translate("pages.login.register", "Sign up")}
+            <Link to="/register">
+              {translate("pages.login.register", "Sign up")}
+            </Link>
           </ChakraLink>
         </Box>
       )}

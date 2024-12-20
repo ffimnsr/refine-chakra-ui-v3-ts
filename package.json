@@ -1,27 +1,32 @@
 {
-  "name": "@refinedev/chakra-ui-v3",
+  "name": "@ffimnsr/chakra-ui-v3",
   "version": "1.0.0",
   "private": false,
   "description": "refine is a React-based framework for building internal tools, rapidly. It ships with Ant Design System, an enterprise-level UI toolkit.",
   "license": "MIT",
-  "author": "Refine",
+  "author": "Edward Fitz Abucay <gh:@ffimnsr>",
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/src/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/src/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
-  "typings": "dist/index.d.ts",
+  "typings": "dist/src/index.d.ts",
   "scripts": {
     "attw": "attw --pack .",
-    "build": "tsup --dts",
+    "build": "tsup && node ./shared/generate-declarations.js",
     "dev": "tsup --watch",
     "prepare": "pnpm build",
-    "test": "jest --passWithNoTests --runInBand",
+    "test": "jest --silent=false --verbose=true --passWithNoTests",
     "types": "node ./shared/generate-declarations.js"
   },
   "dependencies": {
@@ -32,7 +37,6 @@
     "@emotion/styled": "^11.8.1",
     "@refinedev/react-hook-form": "^4.9.1",
     "@refinedev/ui-types": "^1.22.9",
-    "@tabler/icons-react": "^3.1.0",
     "dayjs": "^1.10.7",
     "framer-motion": "^11.15.0",
     "next-themes": "^0.4.4",
@@ -43,6 +47,7 @@
     "tslib": "^2.6.2"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.17.2",
     "@biomejs/biome": "^1.9.4",
     "@esbuild-plugins/node-resolve": "^0.1.4",
     "@microsoft/api-extractor": "^7.48.1",
@@ -67,9 +72,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "react-router-dom": "^7.0.2",
     "rimraf": "^6.0.1",
-    "text-encoding": "^0.7.0",
     "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2",
     "tsup": "^8.3.5",
     "typescript": "^5.7.2"
   },

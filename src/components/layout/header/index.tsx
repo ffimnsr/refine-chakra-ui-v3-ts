@@ -26,7 +26,7 @@ export const Header: React.FC<RefineLayoutHeaderProps> = () => {
         <Text fontSize="sm" fontWeight="bold">
           {user?.name}
         </Text>
-        <Avatar size="sm" name={user?.name} src={user?.avatar} />
+        <Avatar name={user?.name} src={user?.avatar} />
       </HStack>
     </Box>
   ) : null

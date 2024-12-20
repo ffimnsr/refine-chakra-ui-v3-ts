@@ -4,13 +4,13 @@ import {
   useTranslate,
   AutoSaveIndicator as AutoSaveIndicatorCore,
 } from "@refinedev/core"
-import { Text } from "@chakra-ui/react"
+import { Text, Span } from "@chakra-ui/react"
 import {
-  IconDots,
-  IconRefresh,
-  IconCircleCheck,
-  IconExclamationCircle,
-} from "@tabler/icons-react"
+  LuCircleDot,
+  LuRefreshCw,
+  LuCircleCheck,
+  LuCircleAlert,
+} from "react-icons/lu"
 
 export const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({
   status,
@@ -19,28 +19,28 @@ export const AutoSaveIndicator: React.FC<AutoSaveIndicatorProps> = ({
       <Message
         translationKey="autoSave.success"
         defaultMessage="saved"
-        icon={<IconCircleCheck size="18px" />}
+        icon={<LuCircleCheck size="18px" />}
       />
     ),
     error = (
       <Message
         translationKey="autoSave.error"
         defaultMessage="auto save failure"
-        icon={<IconExclamationCircle size="18px" />}
+        icon={<LuCircleAlert size="18px" />}
       />
     ),
     loading = (
       <Message
         translationKey="autoSave.loading"
         defaultMessage="saving..."
-        icon={<IconRefresh size="18px" />}
+        icon={<LuRefreshCw size="18px" />}
       />
     ),
     idle = (
       <Message
         translationKey="autoSave.idle"
         defaultMessage="waiting for changes"
-        icon={<IconDots size="18px" />}
+        icon={<LuCircleDot size="18px" />}
       />
     ),
   } = {},
@@ -79,7 +79,7 @@ const Message = ({
       fontSize="sm"
     >
       {translate(translationKey, defaultMessage)}
-      <span style={{ marginLeft: "3px" }}>{icon}</span>
+      <Span ml="3px">{icon}</Span>
     </Text>
   )
 }

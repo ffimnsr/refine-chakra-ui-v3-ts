@@ -5,7 +5,7 @@ import {
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
 import { Button, IconButton } from "@chakra-ui/react"
-import { IconSquarePlus } from "@tabler/icons-react"
+import { LuSquarePlus } from "react-icons/lu"
 
 import type { CloneButtonProps } from "../types"
 
@@ -62,7 +62,7 @@ export const CloneButton: React.FC<CloneButtonProps> = ({
           className={RefineButtonClassNames.CloneButton}
           {...rest}
         >
-          <IconSquarePlus size={20} {...svgIconProps} />
+          <LuSquarePlus size={20} {...svgIconProps} />
         </IconButton>
       ) : (
         <Button
@@ -73,7 +73,7 @@ export const CloneButton: React.FC<CloneButtonProps> = ({
           className={RefineButtonClassNames.CloneButton}
           {...rest}
         >
-          <IconSquarePlus size={20} {...svgIconProps} />
+          <LuSquarePlus size={20} {...svgIconProps} />
           {children ?? label}
         </Button>
       )}

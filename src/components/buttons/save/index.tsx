@@ -4,7 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconDeviceFloppy } from "@tabler/icons-react"
+import { LuSave } from "react-icons/lu"
 
 import type { SaveButtonProps } from "../types"
 import { IconButton } from "@components/ui/icon-button"
@@ -32,7 +32,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       className={RefineButtonClassNames.SaveButton}
       {...rest}
     >
-      <IconDeviceFloppy size={20} {...svgIconProps} />
+      <LuSave size={20} {...svgIconProps} />
     </IconButton>
   ) : (
     <Button
@@ -41,7 +41,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
       className={RefineButtonClassNames.SaveButton}
       {...rest}
     >
-      <IconDeviceFloppy size={20} {...svgIconProps} />
+      <LuSave size={20} {...svgIconProps} />
       {children ?? label}
     </Button>
   )

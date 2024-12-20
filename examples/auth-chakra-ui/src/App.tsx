@@ -1,7 +1,6 @@
 import {
   type AuthProvider,
   Authenticated,
-  GitHubBanner,
   Refine,
 } from "@refinedev/core"
 import {
@@ -9,9 +8,7 @@ import {
   ThemedLayoutV2,
   ErrorComponent,
   useNotificationProvider,
-  refineTheme,
 } from "@refinedev/chakra-ui-v3"
-import { ChakraProvider } from "@chakra-ui/react"
 import dataProvider from "@refinedev/simple-rest"
 import routerProvider, {
   NavigateToResource,
@@ -20,9 +17,10 @@ import routerProvider, {
   DocumentTitleHandler,
 } from "@refinedev/react-router"
 import { BrowserRouter, Routes, Route, Outlet } from "react-router"
-import { IconBrandGoogle, IconBrandGithub } from "@tabler/icons-react"
+import { FaGoogle, FaGithub } from "react-icons/fa6"
 
 import { PostCreate, PostEdit, PostList, PostShow } from "./pages"
+import { Provider } from "./components/ui/provider"
 
 /**
  *  mock auth credentials to simulate authentication
@@ -152,8 +150,7 @@ const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      <GitHubBanner />
-      <ChakraProvider theme={refineTheme}>
+      <Provider>
         <Refine
           dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
           authProvider={authProvider}
@@ -217,12 +214,12 @@ const App: React.FC = () => {
                       {
                         name: "google",
                         label: "Sign in with Google",
-                        icon: <IconBrandGoogle />,
+                        icon: <FaGoogle />,
                       },
                       {
                         name: "github",
                         label: "Sign in with GitHub",
-                        icon: <IconBrandGithub />,
+                        icon: <FaGithub />,
                       },
                     ]}
                   />
@@ -237,12 +234,12 @@ const App: React.FC = () => {
                       {
                         name: "google",
                         label: "Sign in with Google",
-                        icon: <IconBrandGoogle />,
+                        icon: <FaGoogle />,
                       },
                       {
                         name: "github",
                         label: "Sign in with GitHub",
-                        icon: <IconBrandGithub />,
+                        icon: <FaGithub />,
                       },
                     ]}
                   />
@@ -273,7 +270,7 @@ const App: React.FC = () => {
           <UnsavedChangesNotifier />
           <DocumentTitleHandler />
         </Refine>
-      </ChakraProvider>
+      </Provider>
     </BrowserRouter>
   )
 }

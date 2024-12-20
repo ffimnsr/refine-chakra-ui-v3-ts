@@ -4,8 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconEye } from "@tabler/icons-react"
-
+import { LuEye } from "react-icons/lu"
 import type { ShowButtonProps } from "../types"
 import { IconButton } from "@components/ui/icon-button"
 import { Button } from "@components/ui/button"
@@ -62,7 +61,7 @@ export const ShowButton: React.FC<ShowButtonProps> = ({
           className={RefineButtonClassNames.ShowButton}
           {...rest}
         >
-          <IconEye size={20} {...svgIconProps} />
+          <LuEye size={20} {...svgIconProps} />
         </IconButton>
       ) : (
         <Button
@@ -73,7 +72,7 @@ export const ShowButton: React.FC<ShowButtonProps> = ({
           className={RefineButtonClassNames.ShowButton}
           {...rest}
         >
-          <IconEye size={20} {...svgIconProps} />
+          <LuEye size={20} {...svgIconProps} />
           {children ?? label}
         </Button>
       )}

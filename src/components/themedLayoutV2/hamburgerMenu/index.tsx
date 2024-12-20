@@ -1,10 +1,6 @@
 import React from "react"
 import { type IconButtonProps, IconButton } from "@chakra-ui/react"
-import {
-  IconLayoutSidebarLeftCollapse,
-  IconLayoutSidebarLeftExpand,
-  IconMenu2,
-} from "@tabler/icons-react"
+import { LuArrowLeftToLine, LuArrowRightFromLine, LuMenu } from "react-icons/lu"
 
 import { useThemedLayoutContext } from "@hooks"
 
@@ -27,18 +23,14 @@ export const HamburgerMenu: React.FC = () => {
         aria-label="drawer-sidebar-toggle"
         onClick={() => setSiderCollapsed(!siderCollapsed)}
       >
-        {siderCollapsed ? (
-          <IconLayoutSidebarLeftExpand />
-        ) : (
-          <IconLayoutSidebarLeftCollapse />
-        )}
+        {siderCollapsed ? <LuArrowRightFromLine /> : <LuArrowLeftToLine />}
       </HamburgerIcon>
       <HamburgerIcon
         display={{ base: "flex", md: "none" }}
         aria-label="sidebar-toggle"
         onClick={() => setMobileSiderOpen(!mobileSiderOpen)}
       >
-        <IconMenu2 />
+        <LuMenu />
       </HamburgerIcon>
     </>
   )

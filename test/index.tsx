@@ -13,10 +13,13 @@ import {
 } from "@refinedev/core"
 
 import { MockRouterProvider, MockJSONServer } from "@test"
+import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { ColorModeProvider } from "@components/ui/color-mode"
 
 const List = () => {
   return <div>hede</div>
 }
+
 export interface ITestWrapperProps {
   dataProvider?: DataProvider
   authProvider?: AuthProvider
@@ -57,37 +60,60 @@ export const TestWrapper: (
   return ({ children }): React.ReactElement => {
     return (
       <BrowserRouter>
-        <Refine
-          dataProvider={dataProvider ?? MockJSONServer}
-          i18nProvider={i18nProvider}
-          legacyRouterProvider={MockRouterProvider}
-          authProvider={authProvider}
-          legacyAuthProvider={legacyAuthProvider}
-          notificationProvider={notificationProvider}
-          resources={resources ?? [{ name: "posts", list: List }]}
-          accessControlProvider={accessControlProvider}
-          DashboardPage={DashboardPage ?? undefined}
-          options={{
-            disableTelemetry: true,
-            reactQuery: {
-              clientConfig: {
-                defaultOptions: {
-                  queries: {
-                    cacheTime: 0,
-                    staleTime: 0,
-                    networkMode: "always",
+        <ChakraProvider value={defaultSystem}>
+          <ColorModeProvider>
+            <Refine
+              dataProvider={dataProvider ?? MockJSONServer}
+              i18nProvider={i18nProvider}
+              legacyRouterProvider={MockRouterProvider}
+              authProvider={authProvider}
+              legacyAuthProvider={legacyAuthProvider}
+              notificationProvider={notificationProvider}
+              resources={resources ?? [{ name: "posts", list: List }]}
+              accessControlProvider={accessControlProvider}
+              DashboardPage={DashboardPage ?? undefined}
+              options={{
+                disableTelemetry: true,
+                reactQuery: {
+                  clientConfig: {
+                    defaultOptions: {
+                      queries: {
+                        cacheTime: 0,
+                        staleTime: 0,
+                        networkMode: "always",
+                      },
+                    },
                   },
                 },
-              },
-            },
-          }}
-        >
-          {children}
-        </Refine>
+              }}
+            >
+              {children}
+            </Refine>
+          </ColorModeProvider>
+        </ChakraProvider>
       </BrowserRouter>
     )
   }
 }
+
+export const SmallTestWrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
+  return (
+    <ChakraProvider value={defaultSystem}>
+      <ColorModeProvider>
+        {children}
+      </ColorModeProvider>
+    </ChakraProvider>
+  )
+}
+
+export function ChakraTestWrapper<T extends React.ComponentType<any>>(Component: T): React.FC<React.ComponentProps<T>> {
+  return (props: React.ComponentProps<T>) => (
+    <SmallTestWrapper>
+      <Component {...props} />
+    </SmallTestWrapper>
+  )
+}
+
 export {
   MockJSONServer,
   MockRouterProvider,

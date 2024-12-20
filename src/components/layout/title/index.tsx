@@ -5,31 +5,33 @@ import {
   useLink,
   type TitleProps,
 } from "@refinedev/core"
-import { Link as ChakraLink } from "@chakra-ui/react"
+import { Link as ChakraLink, Image } from "@chakra-ui/react"
 
 export const Title: React.FC<TitleProps> = ({ collapsed }) => {
   const routerType = useRouterType()
-  const Link = useLink()
+  const NewLink = useLink()
   const { Link: LegacyLink } = useRouterContext()
 
-  const ActiveLink = routerType === "legacy" ? LegacyLink : Link
+  const Link = routerType === "legacy" ? LegacyLink : NewLink
 
   return (
-    <ChakraLink as={ActiveLink} href="/">
-      {collapsed ? (
-        <img
-          src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine-mini.svg"
-          alt="Refine"
-          style={{ maxHeight: "38px" }}
-        />
-      ) : (
-        <img
-          src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine.svg"
-          alt="Refine"
-          width="140px"
-          style={{ minHeight: "38px" }}
-        />
-      )}
+    <ChakraLink asChild>
+      <Link to="/">
+        {collapsed ? (
+          <Image
+            src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine-mini.svg"
+            alt="Refine"
+            minHeight="38px"
+          />
+        ) : (
+          <Image
+            src="https://refine.ams3.cdn.digitaloceanspaces.com/logo/refine.svg"
+            alt="Refine"
+            width="140px"
+            minHeight="38px"
+          />
+        )}
+      </Link>
     </ChakraLink>
   )
 }

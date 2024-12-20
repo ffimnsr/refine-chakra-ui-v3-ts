@@ -15,8 +15,7 @@ import {
 
 import { Box, Heading, HStack, IconButton, Spinner } from "@chakra-ui/react"
 
-// We use @tabler/icons for icons but you can use any icon library you want.
-import { IconArrowLeft } from "@tabler/icons-react"
+import { LuArrowLeft } from "react-icons/lu"
 
 import {
   DeleteButton,
@@ -163,7 +162,7 @@ export const Edit: React.FC<EditProps> = (props) => {
         {typeof goBackFromProps !== "undefined" ? (
           goBackFromProps
         ) : (
-          <IconArrowLeft />
+          <LuArrowLeft />
         )}
       </IconButton>
     )

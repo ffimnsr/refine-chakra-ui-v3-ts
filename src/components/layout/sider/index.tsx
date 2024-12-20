@@ -15,33 +15,31 @@ import {
   useWarnAboutChange,
 } from "@refinedev/core"
 import { Box, VStack } from "@chakra-ui/react"
-import { chakra } from "@chakra-ui/react"
 import {
-  IconList,
-  IconChevronRight,
-  IconChevronLeft,
-  IconDashboard,
-  IconLogout,
-  IconMenu2,
-} from "@tabler/icons-react"
+  Accordion as ArkAccordion,
+  useAccordion,
+  useDialog,
+} from "@ark-ui/react"
+import {
+  LuList,
+  LuChevronRight,
+  LuChevronLeft,
+  LuGauge,
+  LuLogOut,
+  LuMenu,
+} from "react-icons/lu"
 
 import { Title as DefaultTitle } from "@components"
 import type { RefineLayoutSiderProps } from "../types"
-import { Tooltip, type TooltipProps } from "@components/ui/tooltip"
-import {
-  AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
-} from "@components/ui/accordion"
 import { Button } from "@components/ui/button"
 import { IconButton } from "@components/ui/icon-button"
 import {
   DrawerBackdrop,
   DrawerContent,
-  DrawerRoot,
+  DrawerRootProvider,
 } from "@components/ui/drawer"
 import { LuChevronDown } from "react-icons/lu"
+import { Tooltip, type TooltipProps } from "@components/ui/tooltip"
 
 export const Sider: React.FC<RefineLayoutSiderProps> = ({
   Title: TitleFromProps,
@@ -49,7 +47,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
   meta,
 }) => {
   const [collapsed, setCollapsed] = useState(false)
-  const [opened, setOpened] = useState(false)
+  const drawer = useDialog({})
 
   const routerType = useRouterType()
   const NewLink = useLink()
@@ -66,6 +64,10 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
     v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
   })
 
+  const accordion = useAccordion({
+    defaultValue: defaultOpenKeys,
+  })
+
   const RenderToTitle = TitleFromProps ?? TitleFromContext ?? DefaultTitle
 
   const siderWidth = () => {
@@ -73,10 +75,12 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
     return "200px"
   }
 
-  const commonTooltipProps: Omit<TooltipProps, "children"> = {
-    placement: "right",
-    hasArrow: true,
-    isDisabled: !collapsed || opened,
+  const commonTooltipProps: Omit<TooltipProps, "children" | "content"> = {
+    positioning: {
+      placement: "right",
+    },
+    showArrow: true,
+    disabled: !collapsed || drawer.open,
   }
 
   const renderTreeView = (tree: ITreeMenu[]) => {
@@ -102,59 +106,64 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             resource: item,
           }}
         >
-          <AccordionRoot
-            defaultIndex={defaultOpenKeys.includes(item.key || "") ? 0 : -1}
-            width="full"
-            allowToggle
+          <ArkAccordion.RootProvider
+            value={accordion}
+            style={{ width: "full" }}
           >
-            <AccordionItem value={item.key || ""} border="none">
-              <Tooltip label={label} {...commonTooltipProps}>
-                <AccordionItemTrigger
-                  as="button"
-                  pl={6}
-                  pr={4}
-                  pt={3}
-                  pb={3}
-                  width="full"
+            <ArkAccordion.Item value={item.key || ""}>
+              <Tooltip content={label} {...commonTooltipProps}>
+                <ArkAccordion.ItemTrigger
+                  style={{
+                    paddingLeft: 6,
+                    paddingRight: 4,
+                    paddingTop: 3,
+                    paddingBottom: 3,
+                    width: "full",
+                  }}
                 >
-                  <Link
+                  <Button
                     width="full"
                     variant="plain"
                     color="white"
                     fontWeight="normal"
+                    data-active={isSelected}
                     _active={{
                       color: "none",
                       fontWeight: isParent ? "normal" : "bold",
                     }}
                     _hover={{ textDecoration: "none" }}
-                    active={isSelected}
                     {...linkProps}
                   >
                     {icon ??
                       ((
                         <>
-                          <IconList size={20} />
+                          <LuList size={20} />
                         </>
                       ) as any)}
-                    {(!collapsed || opened) && (
+                    {(!collapsed || drawer.open) && (
                       <Box flexGrow={1} textAlign="left">
                         {label}
                       </Box>
                     )}
                     {isParent ? <LuChevronDown /> : undefined}
-                  </Link>
-                </AccordionItemTrigger>
+                  </Button>
+                </ArkAccordion.ItemTrigger>
               </Tooltip>
 
               {isParent && (
-                <AccordionItemContent p={0} pl={collapsed && !opened ? 0 : 4}>
-                  <AccordionRoot width="full" allowToggle>
+                <ArkAccordion.ItemContent
+                  style={{
+                    padding: 0,
+                    paddingLeft: collapsed && !drawer.open ? 0 : 4,
+                  }}
+                >
+                  <ArkAccordion.Root style={{ width: "full" }} collapsible>
                     {renderTreeView(children)}
-                  </AccordionRoot>
-                </AccordionItemContent>
+                  </ArkAccordion.Root>
+                </ArkAccordion.ItemContent>
               )}
-            </AccordionItem>
-          </AccordionRoot>
+            </ArkAccordion.Item>
+          </ArkAccordion.RootProvider>
         </CanAccess>
       )
     })
@@ -165,12 +174,12 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
   const dashboard = hasDashboard ? (
     <CanAccess resource="dashboard" action="list">
       <Tooltip
-        label={t("dashboard.title", "Dashboard")}
+        content={t("dashboard.title", "Dashboard")}
         {...commonTooltipProps}
       >
-        <Link
+        <Button
           width="full"
-          justifyContent={collapsed && !opened ? "center" : "flex-start"}
+          justifyContent={collapsed && !drawer.open ? "center" : "flex-start"}
           pl={6}
           pr={4}
           pt={3}
@@ -178,15 +187,13 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
           fontWeight="normal"
           variant="plain"
           color="white"
-          active={selectedKey === "/"}
+          data-active={selectedKey === "/"}
           _active={{ color: "none", fontWeight: "bold" }}
           _hover={{ textDecoration: "none" }}
-          as={Link}
-          href="/"
         >
-          <IconDashboard size={20} />
-          {(!collapsed || opened) && t("dashboard.title", "Dashboard")}
-        </Link>
+          <LuGauge size={20} />
+          {(!collapsed || drawer.open) && t("dashboard.title", "Dashboard")}
+        </Button>
       </Tooltip>
     </CanAccess>
   ) : null
@@ -210,10 +217,10 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
   }
 
   const logout = isExistAuthentication && (
-    <Tooltip label={t("buttons.logout", "Logout")} {...commonTooltipProps}>
+    <Tooltip content={t("buttons.logout", "Logout")} {...commonTooltipProps}>
       <Button
         width="full"
-        justifyContent={collapsed && !opened ? "center" : "flex-start"}
+        justifyContent={collapsed && !drawer.open ? "center" : "flex-start"}
         pl={6}
         pr={4}
         pt={3}
@@ -225,8 +232,8 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
         color="white"
         onClick={handleLogout}
       >
-        <IconLogout size={20} />
-        {(!collapsed || opened) && t("buttons.logout", "Logout")}
+        <LuLogOut size={20} />
+        {(!collapsed || drawer.open) && t("buttons.logout", "Logout")}
       </Button>
     </Tooltip>
   )
@@ -268,18 +275,20 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             transform: "translateY(1px)",
           }}
           aria-label="Open Menu"
-          onClick={() => setOpened((prev) => !prev)}
+          onClick={() => drawer.setOpen(!drawer.open)}
         >
-          <IconMenu2 />
+          <LuMenu />
         </IconButton>
       </Box>
-      <DrawerRoot
-        placement="start"
-        isOpen={opened}
-        onClose={() => setOpened(false)}
-      >
+      <DrawerRootProvider value={drawer}>
         <DrawerBackdrop />
-        <DrawerContent w="200px" maxW="200px" bg="sider.background">
+        <DrawerContent
+          style={{
+            width: "200px",
+            maxWidth: "200px",
+            backgroundColor: "sider.background",
+          }}
+        >
           <Box display="flex" justifyContent="center" py={4}>
             <RenderToTitle collapsed={false} />
           </Box>
@@ -287,7 +296,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             <Box width="full">{renderSider()}</Box>
           </VStack>
         </DrawerContent>
-      </DrawerRoot>
+      </DrawerRootProvider>
 
       <Box
         display={["none", "none", "flex"]}
@@ -322,7 +331,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             transform: "translateY(1px)",
           }}
         >
-          {collapsed ? <IconChevronRight /> : <IconChevronLeft />}
+          {collapsed ? <LuChevronRight /> : <LuChevronLeft />}
         </Button>
       </Box>
     </>

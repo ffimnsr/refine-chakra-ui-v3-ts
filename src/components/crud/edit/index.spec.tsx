@@ -22,6 +22,7 @@ import {
   SaveButton,
 } from "@components/buttons"
 import "@testing-library/jest-dom"
+import { Box } from "@chakra-ui/react"
 
 const renderEdit = (
   edit: ReactNode,
@@ -360,7 +361,7 @@ describe("Edit", () => {
 
       return (
         <Edit autoSaveProps={autoSaveProps}>
-          {formLoading && <div>loading...</div>}
+          {formLoading && <Box>loading...</Box>}
           <input data-testid="title" {...register("title")} />
         </Edit>
       )

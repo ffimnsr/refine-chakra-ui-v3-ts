@@ -51,16 +51,14 @@ export const UpdatePasswordPage: React.FC<UpdatePasswordProps> = ({
 
   const PageTitle =
     title === false ? null : (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "32px",
-          fontSize: "20px",
-        }}
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginBottom="32px"
+        fontSize="20px"
       >
         {title ?? <ThemedTitleV2 collapsed={false} />}
-      </div>
+      </Box>
     )
 
   const allContentProps = { ...cardProps, ...contentProps }
@@ -101,6 +99,7 @@ export const UpdatePasswordPage: React.FC<UpdatePasswordProps> = ({
           <Input
             id="password"
             type="password"
+            autoComplete="new-password"
             placeholder="Password"
             {...register("password", {
               required: translate(

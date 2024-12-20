@@ -63,11 +63,7 @@ export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
             </Text>
           )}
           {user?.avatar && (
-            <Avatar
-              size="sm"
-              name={user?.name || "Profile Photo"}
-              src={user.avatar}
-            />
+            <Avatar name={user?.name || "Profile Photo"} src={user.avatar} />
           )}
         </HStack>
       </Box>

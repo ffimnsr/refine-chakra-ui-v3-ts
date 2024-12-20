@@ -10,8 +10,7 @@ import {
 } from "@refinedev/core"
 import { Box, Heading, HStack, IconButton, Spinner } from "@chakra-ui/react"
 
-// We use @tabler/icons for icons but you can use any icon library you want.
-import { IconArrowLeft } from "@tabler/icons-react"
+import { LuArrowLeft } from "react-icons/lu"
 
 import { Breadcrumb, SaveButton, type SaveButtonProps } from "@components"
 import type { CreateProps } from "../types"
@@ -75,7 +74,7 @@ export const Create: React.FC<CreateProps> = (props) => {
         {typeof goBackFromProps !== "undefined" ? (
           goBackFromProps
         ) : (
-          <IconArrowLeft />
+          <LuArrowLeft />
         )}
       </IconButton>
     )

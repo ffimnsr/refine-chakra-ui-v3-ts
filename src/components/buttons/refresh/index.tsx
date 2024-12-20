@@ -4,8 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconRefresh } from "@tabler/icons-react"
-
+import { LuRefreshCw } from "react-icons/lu"
 import type { RefreshButtonProps } from "../types"
 import { IconButton } from "@components/ui/icon-button"
 import { Button } from "@components/ui/button"
@@ -50,7 +49,7 @@ export const RefreshButton: React.FC<RefreshButtonProps> = ({
       className={RefineButtonClassNames.RefreshButton}
       {...rest}
     >
-      <IconRefresh size={20} {...svgIconProps} />
+      <LuRefreshCw size={20} {...svgIconProps} />
     </IconButton>
   ) : (
     <Button
@@ -63,7 +62,7 @@ export const RefreshButton: React.FC<RefreshButtonProps> = ({
       className={RefineButtonClassNames.RefreshButton}
       {...rest}
     >
-      <IconRefresh size={20} {...svgIconProps} />
+      <LuRefreshCw size={20} {...svgIconProps} />
       {children ?? label}
     </Button>
   )

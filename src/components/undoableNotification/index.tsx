@@ -1,7 +1,7 @@
 import React from "react"
 import type { OpenNotificationParams } from "@refinedev/core"
 import { Box, createToaster, IconButton, Text } from "@chakra-ui/react"
-import { IconRotate2 } from "@tabler/icons-react"
+import { LuRotateCw } from "react-icons/lu"
 import {
   ProgressCircleRoot,
   ProgressCircleValueText,
@@ -45,7 +45,7 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
           toast.close(notificationKey)
         }}
       >
-        <IconRotate2 size={18} />
+        <LuRotateCw size={18} />
       </IconButton>
     </Box>
   )

@@ -6,7 +6,7 @@ import {
 } from "@refinedev/ui-types"
 
 import { HStack } from "@chakra-ui/react"
-import { IconTrash } from "@tabler/icons-react"
+import { LuTrash } from "react-icons/lu"
 
 import type { DeleteButtonProps } from "../types"
 import {
@@ -19,6 +19,7 @@ import {
 } from "@components/ui/popover"
 import { IconButton } from "@components/ui/icon-button"
 import { Button } from "@components/ui/button"
+import { usePopover } from "@ark-ui/react"
 
 /**
  * `<DeleteButton>` uses Chakra UI {@link https://chakra-ui.com/docs/components/button `<Button>`} and {@link https://chakra-ui.com/docs/components/popover `<Popover>`} components.
@@ -69,33 +70,38 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
     invalidates,
   })
 
-  const [opened, setOpened] = useState(false)
+  // const [opened, setOpened] = useState(false)
+
+  const popover = usePopover({
+    positioning: {
+      placement: "bottom-start",
+    },
+  })
 
   if (hidden) return null
 
-  const hello = {}
   return (
-    <PopoverRoot open={opened} lazyMount>
-      <PopoverTrigger>
+    <PopoverRoot value={popover} lazyMount>
+      <PopoverTrigger asChild>
         {hideText ? (
           <IconButton
             colorScheme="red"
             variant="outline"
             aria-label={title}
-            onClick={() => setOpened((o) => !o)}
+            onClick={() => popover.setOpen(!popover.open)}
             disabled={loading || disabled}
             loading={loading}
             data-testid={RefineButtonTestIds.DeleteButton}
             className={RefineButtonClassNames.DeleteButton}
             {...rest}
           >
-            <IconTrash size={20} {...svgIconProps} />
+            <LuTrash size={20} {...svgIconProps} />
           </IconButton>
         ) : (
           <Button
             colorScheme="red"
             variant="outline"
-            onClick={() => setOpened((o) => !o)}
+            onClick={() => popover.setOpen(!popover.open)}
             disabled={loading || disabled}
             loading={loading}
             title={title}
@@ -103,7 +109,7 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
             className={RefineButtonClassNames.DeleteButton}
             {...rest}
           >
-            <IconTrash size={20} {...svgIconProps} />
+            <LuTrash size={20} {...svgIconProps} />
             {children ?? label}
           </Button>
         )}
@@ -113,14 +119,14 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
         <PopoverHeader>{confirmTitle ?? defaultConfirmTitle}</PopoverHeader>
         <PopoverBody display="flex" justifyContent="center">
           <HStack>
-            <Button onClick={() => setOpened(false)} size="sm">
+            <Button onClick={() => popover.setOpen(!popover.open)} size="sm">
               {confirmCancelText ?? defaultCancelLabel}
             </Button>
             <Button
               colorScheme="red"
               onClick={() => {
                 onConfirm()
-                setOpened(false)
+                popover.setOpen(!popover.open)
               }}
               autoFocus
               size="sm"

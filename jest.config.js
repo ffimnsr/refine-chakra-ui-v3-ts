@@ -4,9 +4,11 @@ const { compilerOptions } = require("./tsconfig.json")
 const paths = compilerOptions.paths ? compilerOptions.paths : {}
 
 module.exports = {
+  verbose: true,
+  silent: false,
   preset: "ts-jest",
   rootDir: "./",
-  testEnvironment: "jsdom",
+  testEnvironment: "./fix-jsdom-env.ts",
   setupFilesAfterEnv: ["<rootDir>/test/jest.setup.ts"],
   testPathIgnorePatterns: ["<rootDir>/node_modules/"],
   moduleNameMapper: {

@@ -62,16 +62,14 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
 
   const PageTitle =
     title === false ? null : (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "32px",
-          fontSize: "20px",
-        }}
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginBottom="32px"
+        fontSize="20px"
       >
         {title ?? <ThemedTitleV2 collapsed={false} />}
-      </div>
+      </Box>
     )
 
   const allContentProps = { ...cardProps, ...contentProps }
@@ -110,6 +108,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
           <Input
             id="email"
             type="text"
+            autoComplete="email"
             {...register("email", {
               required: translate(
                 "pages.forgotPassword.errors.requiredEmail",
@@ -130,7 +129,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
         </Field>
 
         {loginLink ?? (
-          <Box my="6" display="flex" justifyContent="flex-end">
+          <Box my="6" display="flex" justifyContent="flex-end" fontSize="12px">
             <span>
               {translate(
                 "pages.forgotPassword.buttons.haveAccount",
@@ -140,16 +139,13 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
                 ),
               )}
             </span>
-            <ChakraLink
-              color={importantTextColor}
-              ml="1"
-              as={Link}
-              href="/login"
-            >
-              {translate(
-                "pages.forgotPassword.signin",
-                translate("pages.login.signin", "Sign in"),
-              )}
+            <ChakraLink color={importantTextColor} ml="1" asChild>
+              <Link to="/login">
+                {translate(
+                  "pages.forgotPassword.signin",
+                  translate("pages.login.signin", "Sign in"),
+                )}
+              </Link>
             </ChakraLink>
           </Box>
         )}

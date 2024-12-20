@@ -15,18 +15,14 @@ import {
   useWarnAboutChange,
 } from "@refinedev/core"
 import { Box, VStack } from "@chakra-ui/react"
-import { IconList, IconDashboard, IconPower } from "@tabler/icons-react"
+import { useAccordion } from "@ark-ui/react"
+import { LuList, LuGauge, LuLogOut } from "react-icons/lu"
 
 import { ThemedTitleV2 as DefaultTitle } from "../title"
 import type { RefineThemedLayoutV2SiderProps } from "../types"
 import { useThemedLayoutContext } from "@hooks"
 import { Tooltip, type TooltipProps } from "@components/ui/tooltip"
-import {
-  AccordionItem,
-  AccordionItemContent,
-  AccordionItemTrigger,
-  AccordionRoot,
-} from "@components/ui/accordion"
+import { Accordion as ArkAccordion } from "@ark-ui/react"
 import {
   DrawerBackdrop,
   DrawerContent,
@@ -60,6 +56,10 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
     v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
   })
 
+  const accordion = useAccordion({
+    defaultValue: defaultOpenKeys,
+  })
+
   const RenderToTitle = TitleFromProps ?? TitleFromContext ?? DefaultTitle
 
   const siderWidth = () => {
@@ -67,10 +67,12 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
     return "200px"
   }
 
-  const commonTooltipProps: Omit<TooltipProps, "children"> = {
-    placement: "right",
-    hasArrow: true,
-    isDisabled: !siderCollapsed || mobileSiderOpen,
+  const commonTooltipProps: Omit<TooltipProps, "children" | "content"> = {
+    positioning: {
+      placement: "right",
+    },
+    showArrow: true,
+    disabled: !siderCollapsed || mobileSiderOpen,
   }
 
   const renderTreeView = (tree: ITreeMenu[]) => {
@@ -99,30 +101,27 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
             resource: item,
           }}
         >
-          <AccordionRoot
-            defaultIndex={defaultOpenKeys.includes(item.key || "") ? 0 : -1}
-            width="full"
-            mb={2}
-            allowToggle
+          <ArkAccordion.RootProvider
+            style={{
+              width: "full",
+              marginBottom: "2em",
+            }}
+            value={accordion}
           >
-            <AccordionItem value={item.key || ""} border="none">
-              <Tooltip label={label} {...commonTooltipProps}>
-                <AccordionItemTrigger
-                  px={0}
-                  py={0}
-                  as="div"
-                  width="full"
-                  _hover={{
-                    backgroundColor: "transparent",
-                  }}
-                >
-                  <Link
+            <ArkAccordion.Item value={item.key || ""}>
+              <Tooltip content={label} {...commonTooltipProps}>
+                <ArkAccordion.ItemTrigger asChild>
+                  <Button
                     colorScheme={isSelected ? "brand" : "gray"}
                     borderRadius={0}
-                    pl={siderCollapsed && !mobileSiderOpen ? 6 : 5}
+                    p={0}
+                    pl={siderCollapsed && !mobileSiderOpen ? 0 : 5}
                     width="full"
                     variant="ghost"
                     fontWeight="normal"
+                    _hover={{
+                      bgColor: "transparent",
+                    }}
                     _active={{
                       _before: {
                         content: "''",
@@ -139,14 +138,13 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
                       borderRight: "4px",
                       borderRightColor: "brand.200",
                     }}
-                    active={isSelected}
                     style={linkStyle}
                     {...linkProps}
                   >
                     {icon ??
                       ((
                         <>
-                          <IconList size={16} />
+                          <LuList size={16} />
                         </>
                       ) as any)}
                     {(mobileSiderOpen || !siderCollapsed) && (
@@ -155,22 +153,29 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
                       </Box>
                     )}
                     {isParent ? <LuChevronDown color="brand.100" /> : undefined}
-                  </Link>
-                </AccordionItemTrigger>
+                  </Button>
+                </ArkAccordion.ItemTrigger>
               </Tooltip>
 
               {isParent && (
-                <AccordionItemContent
-                  p={0}
-                  pl={siderCollapsed && !mobileSiderOpen ? 0 : 4}
+                <ArkAccordion.ItemContent
+                  style={{
+                    padding: 0,
+                    paddingLeft: siderCollapsed && !mobileSiderOpen ? 0 : 4,
+                  }}
                 >
-                  <AccordionRoot width="full" allowToggle>
+                  <ArkAccordion.Root
+                    style={{
+                      width: "full",
+                    }}
+                    collapsible
+                  >
                     {renderTreeView(children)}
-                  </AccordionRoot>
-                </AccordionItemContent>
+                  </ArkAccordion.Root>
+                </ArkAccordion.ItemContent>
               )}
-            </AccordionItem>
-          </AccordionRoot>
+            </ArkAccordion.Item>
+          </ArkAccordion.RootProvider>
         </CanAccess>
       )
     })
@@ -181,7 +186,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   const dashboard = hasDashboard ? (
     <CanAccess resource="dashboard" action="list">
       <Tooltip
-        label={t("dashboard.title", "Dashboard")}
+        content={t("dashboard.title", "Dashboard")}
         {...commonTooltipProps}
       >
         <Button
@@ -200,7 +205,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           asChild
         >
           <Link href="/">
-            <IconDashboard size={16} />
+            <LuGauge size={16} />
             {(mobileSiderOpen || !siderCollapsed) &&
               t("dashboard.title", "Dashboard")}
           </Link>
@@ -228,7 +233,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   }
 
   const logout = isExistAuthentication && (
-    <Tooltip label={t("buttons.logout", "Logout")} {...commonTooltipProps}>
+    <Tooltip content={t("buttons.logout", "Logout")} {...commonTooltipProps}>
       <Box p={0}>
         <Button
           borderRadius={0}
@@ -245,7 +250,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           }}
           onClick={handleLogout}
         >
-          <IconPower size={16} />
+          <LuLogOut size={16} />
           {(mobileSiderOpen || !siderCollapsed) &&
             t("buttons.logout", "Logout")}
         </Button>
@@ -274,9 +279,8 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   return (
     <>
       <DrawerRoot
-        placement="start"
-        isOpen={mobileSiderOpen}
-        onClose={() => setMobileSiderOpen(!mobileSiderOpen)}
+        open={mobileSiderOpen}
+        onOpenChange={() => setMobileSiderOpen(!mobileSiderOpen)}
       >
         <DrawerBackdrop />
         <DrawerContent>

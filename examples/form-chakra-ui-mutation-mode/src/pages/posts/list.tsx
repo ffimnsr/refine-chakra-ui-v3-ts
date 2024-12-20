@@ -8,16 +8,10 @@ import {
   EditButton,
   DeleteButton,
   DateField,
-} from "@refinedev/chakra-ui"
+} from "@refinedev/chakra-ui-v3"
 
 import {
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
   HStack,
   Text,
   Select,

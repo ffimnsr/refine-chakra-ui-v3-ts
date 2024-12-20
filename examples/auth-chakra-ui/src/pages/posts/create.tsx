@@ -1,15 +1,11 @@
 import { Create } from "@refinedev/chakra-ui-v3"
-import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Select,
-} from "@chakra-ui/react"
+import { Input, Select, Textarea } from "@chakra-ui/react"
 import { useSelect } from "@refinedev/core"
 import { useForm } from "@refinedev/react-hook-form"
 
 import type { IPost } from "../../interfaces"
+import { Field } from "../../components/ui/field"
+import { NativeSelectField, NativeSelectRoot } from "../../components/ui/native-select"
 
 export const PostCreate = () => {
   const {
@@ -25,47 +21,74 @@ export const PostCreate = () => {
 
   return (
     <Create isLoading={formLoading} saveButtonProps={saveButtonProps}>
-      <FormControl mb="3" isInvalid={!!errors?.title}>
-        <FormLabel>Title</FormLabel>
+      <Field
+        mb="3"
+        invalid={!!errors?.title}
+        errorText={`${errors.title?.message}`}
+        label="Title"
+      >
         <Input
           id="title"
           type="text"
           {...register("title", { required: "Title is required" })}
         />
-        <FormErrorMessage>{`${errors.title?.message}`}</FormErrorMessage>
-      </FormControl>
-      <FormControl mb="3" isInvalid={!!errors?.status}>
-        <FormLabel>Status</FormLabel>
-        <Select
+      </Field>
+      <Field
+        mb="3"
+        invalid={!!errors?.status}
+        errorText={`${errors.status?.message}`}
+        label="Status"
+      >
+        <NativeSelectRoot>
+          <NativeSelectField
+            id="status"
+            placeholder="Select Post Status"
+            {...register("status", {
+              required: "Status is required",
+            })}
+          >
+            <option>published</option>
+            <option>draft</option>
+            <option>rejected</option>
+          </NativeSelectField>
+        </NativeSelectRoot>
+      </Field>
+      <Field
+        mb="3"
+        invalid={!!errors?.categoryId}
+        errorText={`${errors.categoryId?.message}`}
+        label="Category"
+      >
+        <NativeSelectRoot>
+          <NativeSelectField
+            id="categoryId"
+            placeholder="Select Category"
+            {...register("category.id", {
+              required: "Category is required",
+            })}
+          >
+            {options?.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </NativeSelectField>
+        </NativeSelectRoot>
+      </Field>
+
+      <Field
+        mb="3"
+        invalid={!!errors?.content}
+        errorText={`${errors.content?.message}`}
+        label="Content"
+      >
+        <Textarea
           id="content"
-          placeholder="Select Post Status"
-          {...register("status", {
-            required: "Status is required",
+          {...register("content", {
+            required: "content is required",
           })}
-        >
-          <option>published</option>
-          <option>draft</option>
-          <option>rejected</option>
-        </Select>
-        <FormErrorMessage>{`${errors.status?.message}`}</FormErrorMessage>
-      </FormControl>
-      <FormControl mb="3" isInvalid={!!errors?.categoryId}>
-        <FormLabel>Category</FormLabel>
-        <Select
-          id="categoryId"
-          placeholder="Select Category"
-          {...register("categoryId", {
-            required: "Category is required",
-          })}
-        >
-          {options?.map((option) => (
-            <option value={option.value} key={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
-        <FormErrorMessage>{`${errors.categoryId?.message}`}</FormErrorMessage>
-      </FormControl>
+        />
+      </Field>
     </Create>
   )
 }

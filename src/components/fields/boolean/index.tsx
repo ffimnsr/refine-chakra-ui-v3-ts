@@ -1,5 +1,5 @@
 import React from "react"
-import { IconMinus, IconCheck } from "@tabler/icons-react"
+import { LuMinus, LuCheck } from "react-icons/lu"
 import { Tooltip } from "@components/ui/tooltip"
 import type { BooleanFieldProps } from "../types"
 
@@ -18,11 +18,11 @@ export const BooleanField: React.FC<BooleanFieldProps> = ({
   ...rest
 }) => {
   return (
-    <Tooltip label={value ? valueLabelTrue : valueLabelFalse} {...rest}>
+    <Tooltip content={value ? valueLabelTrue : valueLabelFalse} {...rest}>
       <span>
         {value
-          ? (trueIcon ?? <IconCheck size={20} {...svgIconProps} />)
-          : (falseIcon ?? <IconMinus size={20} {...svgIconProps} />)}
+          ? (trueIcon ?? <LuCheck size={20} {...svgIconProps} />)
+          : (falseIcon ?? <LuMinus size={20} {...svgIconProps} />)}
       </span>
     </Tooltip>
   )

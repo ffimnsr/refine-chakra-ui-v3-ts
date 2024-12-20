@@ -5,7 +5,7 @@ import {
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
 import { Button, IconButton } from "@chakra-ui/react"
-import { IconSquarePlus } from "@tabler/icons-react"
+import { LuSquarePlus } from "react-icons/lu"
 
 import type { CreateButtonProps } from "../types"
 
@@ -55,7 +55,7 @@ export const CreateButton: React.FC<CreateButtonProps> = ({
           className={RefineButtonClassNames.CreateButton}
           {...rest}
         >
-          <IconSquarePlus size={20} {...svgIconProps} />
+          <LuSquarePlus size={20} {...svgIconProps} />
         </IconButton>
       ) : (
         <Button
@@ -66,7 +66,7 @@ export const CreateButton: React.FC<CreateButtonProps> = ({
           className={RefineButtonClassNames.CreateButton}
           {...rest}
         >
-          <IconSquarePlus size={20} />
+          <LuSquarePlus size={20} />
           {children ?? label}
         </Button>
       )}

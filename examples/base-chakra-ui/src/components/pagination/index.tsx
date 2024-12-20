@@ -1,6 +1,6 @@
 import type { FC } from "react"
 import { HStack, Button, Box } from "@chakra-ui/react"
-import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react"
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6"
 import { usePagination } from "@refinedev/chakra-ui-v3"
 
 import { IconButton } from "@chakra-ui/react"
@@ -31,7 +31,7 @@ export const Pagination: FC<PaginationProps> = ({
             disabled={!pagination?.prev}
             variant="outline"
           >
-            <IconChevronLeft size="18" />
+            <FaChevronLeft size="18" />
           </IconButton>
         )}
 
@@ -54,7 +54,7 @@ export const Pagination: FC<PaginationProps> = ({
             onClick={() => setCurrent(current + 1)}
             variant="outline"
           >
-            <IconChevronRight size="18" />
+            <FaChevronRight size="18" />
           </IconButton>
         )}
       </HStack>

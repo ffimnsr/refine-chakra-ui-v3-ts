@@ -4,8 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconList } from "@tabler/icons-react"
-
+import { LuList } from "react-icons/lu"
 import type { ListButtonProps } from "../types"
 import { Button } from "@components/ui/button"
 import { IconButton } from "@components/ui/icon-button"
@@ -60,7 +59,7 @@ export const ListButton: React.FC<ListButtonProps> = ({
           className={RefineButtonClassNames.ListButton}
           {...rest}
         >
-          <IconList size={20} {...svgIconProps} />
+          <LuList size={20} {...svgIconProps} />
         </IconButton>
       ) : (
         <Button
@@ -71,7 +70,7 @@ export const ListButton: React.FC<ListButtonProps> = ({
           className={RefineButtonClassNames.ListButton}
           {...rest}
         >
-          <IconList size={20} {...svgIconProps} />
+          <LuList size={20} {...svgIconProps} />
           {children ?? label}
         </Button>
       )}

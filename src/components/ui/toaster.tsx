@@ -7,11 +7,7 @@ import {
   Toast,
   createToaster,
 } from "@chakra-ui/react"
-import type { ToasterBaseProps } from "@ark-ui/react"
-
-export interface ToasterProps
-  extends HTMLChakraProps<"div", ToasterBaseProps> {}
-export declare const ChakraToaster: React.FC<ToasterProps>
+import { Toaster as ArkToaster } from "@ark-ui/react"
 
 export const toaster = createToaster({
   placement: "bottom-end",
@@ -21,7 +17,7 @@ export const toaster = createToaster({
 export const Toaster = () => {
   return (
     <Portal>
-      <ChakraToaster toaster={toaster} insetInline={{ mdDown: "4" }}>
+      <ArkToaster toaster={toaster} style={{ left: "4px", right: "4px" }}>
         {(toast) => (
           <Toast.Root width={{ md: "sm" }}>
             {toast.type === "loading" ? (
@@ -41,7 +37,7 @@ export const Toaster = () => {
             {toast.meta?.closable && <Toast.CloseTrigger />}
           </Toast.Root>
         )}
-      </ChakraToaster>
+      </ArkToaster>
     </Portal>
   )
 }

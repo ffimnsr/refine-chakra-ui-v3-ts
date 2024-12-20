@@ -1,9 +1,7 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["test", "src/types", "test/jest.setup.ts"],
+  "include": ["src/types", "test", "test/jest.setup.ts"],
   "compilerOptions": {
-    "rootDir": ".",
-    "types": ["node", "jest"],
-    "typeRoots": ["./node_modules/@types"]
+    "rootDir": "."
   }
 }

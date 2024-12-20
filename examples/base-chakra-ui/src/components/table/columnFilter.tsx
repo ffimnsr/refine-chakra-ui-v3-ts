@@ -4,15 +4,13 @@ import {
   IconButton,
   VStack,
   HStack,
-  Button,
 } from "@chakra-ui/react"
-import { IconFilter, IconX, IconCheck } from "@tabler/icons-react"
+import { FaFilter, FaX, FaCheck } from "react-icons/fa6"
 
 import type { ColumnButtonProps } from "../../interfaces"
 import { MenuContent, MenuRoot, MenuTrigger } from "../ui/menu"
 
 export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
-  // eslint-disable-next-line
   const [state, setState] = useState(null as null | { value: any })
 
   if (!column.getCanFilter()) {
@@ -26,7 +24,6 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
 
   const close = () => setState(null)
 
-  // eslint-disable-next-line
   const change = (value: any) => setState({ value })
 
   const clear = () => {
@@ -67,15 +64,14 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
   return (
     <MenuRoot open={!!state} onExitComplete={close}>
       <MenuTrigger asChild>
-        <Button
+        <IconButton
           onClick={open}
-          as={IconButton}
           aria-label="Options"
-          variant="ghost"
+          variant="subtle"
           size="xs"
         >
-          <IconFilter size="16" />
-        </Button>
+          <FaFilter size="16" />
+        </IconButton>
       </MenuTrigger>
       <MenuContent>
         {!!state && (
@@ -89,7 +85,7 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
                 colorScheme="red"
                 onClick={clear}
               >
-                <IconX size={18} />
+                <FaX size={18} />
               </IconButton>
               <IconButton
                 aria-label="Save"
@@ -97,7 +93,7 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
                 onClick={save}
                 colorScheme="green"
               >
-                <IconCheck size={18} />
+                <FaCheck size={18} />
               </IconButton>
             </HStack>
           </VStack>

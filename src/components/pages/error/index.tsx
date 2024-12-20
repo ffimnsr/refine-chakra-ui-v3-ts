@@ -8,7 +8,7 @@ import {
   useNavigation,
 } from "@refinedev/core"
 import { Box, Heading, Text, Stack } from "@chakra-ui/react"
-import { IconInfoCircle } from "@tabler/icons-react"
+import { LuInfo } from "react-icons/lu"
 import { useColorModeValue } from "@components/ui/color-mode"
 import { IconButton } from "@components/ui/icon-button"
 import { Button } from "@components/ui/button"
@@ -59,13 +59,13 @@ export const ErrorComponent: React.FC<RefineErrorPageProps> = () => {
           )}
         </Text>
         {errorMessage && (
-          <Tooltip openDelay={0} label={errorMessage}>
+          <Tooltip openDelay={0} content={errorMessage}>
             <IconButton
               aria-label="info"
               color={color}
               data-testid="error-component-tooltip"
             >
-              <IconInfoCircle />
+              <LuInfo />
             </IconButton>
           </Tooltip>
         )}

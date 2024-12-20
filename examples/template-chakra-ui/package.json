@@ -9,31 +9,19 @@
     "refine": "refine",
     "start": "refine start"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "dependencies": {
-    "@chakra-ui/react": "^2.5.1",
-    "@refinedev/chakra-ui": "^2.34.1",
+    "@chakra-ui/react": "^3.2.3",
+    "@refinedev/chakra-ui-v3": "../..",
     "@refinedev/cli": "^2.16.42",
     "@refinedev/core": "^4.57.1",
     "@refinedev/react-hook-form": "^4.9.3",
     "@refinedev/react-router": "^1.0.1",
     "@refinedev/react-table": "^5.6.15",
     "@refinedev/simple-rest": "^5.0.10",
-    "@tabler/icons-react": "^3.1.0",
     "@tanstack/react-table": "^8.2.6",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-icons": "^5.4.0",
     "react-router": "^7.0.2",
     "web-vitals": "^1.1.1"
   },
@@ -45,8 +33,9 @@
     "@types/node": "^18.16.2",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "=0.24.0",
     "typescript": "^5.4.2",
-    "vite": "^5.1.6"
+    "vite": "^6.0.4"
   }
 }

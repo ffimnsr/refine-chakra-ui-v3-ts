@@ -4,8 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconFileExport } from "@tabler/icons-react"
-
+import { LuDownload } from "react-icons/lu"
 import type { ExportButtonProps } from "../types"
 import { Button } from "@components/ui/button"
 import { IconButton } from "@components/ui/icon-button"
@@ -34,7 +33,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
       className={RefineButtonClassNames.ExportButton}
       {...rest}
     >
-      <IconFileExport size={20} {...svgIconProps} />
+      <LuDownload size={20} {...svgIconProps} />
     </IconButton>
   ) : (
     <Button
@@ -44,7 +43,7 @@ export const ExportButton: React.FC<ExportButtonProps> = ({
       className={RefineButtonClassNames.ExportButton}
       {...rest}
     >
-      <IconFileExport size={20} {...svgIconProps} />
+      <LuDownload size={20} {...svgIconProps} />
       {children ?? label}
     </Button>
   )

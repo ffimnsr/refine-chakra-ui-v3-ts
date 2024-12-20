@@ -1,23 +1,13 @@
-import {
-  Tooltip as ChakraTooltip,
-  type HTMLChakraProps,
-  Portal,
-} from "@chakra-ui/react"
-import type { Tooltip as ArkTooltip } from "@ark-ui/react"
+import { Portal } from "@chakra-ui/react"
+import { Tooltip as ArkTooltip } from "@ark-ui/react"
 import * as React from "react"
 
-export interface TooltipTriggerProps
-  extends HTMLChakraProps<"button", ArkTooltip.TriggerProps> {}
-declare const TooltipTrigger: React.ForwardRefExoticComponent<
-  TooltipTriggerProps & React.RefAttributes<HTMLButtonElement>
->
-
-export interface TooltipProps extends ChakraTooltip.RootProps {
+export interface TooltipProps extends ArkTooltip.RootProps {
   showArrow?: boolean
   portalled?: boolean
   portalRef?: React.RefObject<HTMLElement>
   content: React.ReactNode
-  contentProps?: ChakraTooltip.ContentProps
+  contentProps?: ArkTooltip.ContentProps
   disabled?: boolean
 }
 
@@ -37,21 +27,21 @@ export const Tooltip = React.forwardRef<HTMLDivElement, TooltipProps>(
     if (disabled) return children
 
     return (
-      <ChakraTooltip.Root {...rest}>
-        <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <ArkTooltip.Root {...rest}>
+        <ArkTooltip.Trigger asChild>{children}</ArkTooltip.Trigger>
         <Portal disabled={!portalled} container={portalRef}>
-          <ChakraTooltip.Positioner>
-            <ChakraTooltip.Content ref={ref} {...contentProps}>
+          <ArkTooltip.Positioner>
+            <ArkTooltip.Content ref={ref} {...contentProps}>
               {showArrow && (
-                <ChakraTooltip.Arrow>
-                  <ChakraTooltip.ArrowTip />
-                </ChakraTooltip.Arrow>
+                <ArkTooltip.Arrow>
+                  <ArkTooltip.ArrowTip />
+                </ArkTooltip.Arrow>
               )}
               {content}
-            </ChakraTooltip.Content>
-          </ChakraTooltip.Positioner>
+            </ArkTooltip.Content>
+          </ArkTooltip.Positioner>
         </Portal>
-      </ChakraTooltip.Root>
+      </ArkTooltip.Root>
     )
   },
 )

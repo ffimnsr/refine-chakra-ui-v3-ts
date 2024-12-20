@@ -1,14 +1,15 @@
 import { useEffect } from "react"
 import { Edit } from "@refinedev/chakra-ui-v3"
-import {
-  Input,
-  Select,
-  Textarea,
-} from "@chakra-ui/react"
+import { Input, Select, Textarea } from "@chakra-ui/react"
 import { useSelect } from "@refinedev/core"
 import { useForm } from "@refinedev/react-hook-form"
 
 import type { IPost } from "../../interfaces"
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "../../components/ui/native-select"
+import { Field } from "../../components/ui/field"
 
 export const PostEdit = () => {
   const {
@@ -42,58 +43,76 @@ export const PostEdit = () => {
       saveButtonProps={saveButtonProps}
       autoSaveProps={autoSaveProps}
     >
-      <FormControl mb="3" isInvalid={!!errors?.title}>
-        <FormLabel>Title</FormLabel>
+      <Field
+        mb="3"
+        invalid={!!errors?.title}
+        errorText={`${errors?.title?.message}`}
+        label="Title"
+      >
         <Input
           id="title"
           type="text"
           {...register("title", { required: "Title is required" })}
         />
-        <FormErrorMessage>{`${errors.title?.message}`}</FormErrorMessage>
-      </FormControl>
-      <FormControl mb="3" isInvalid={!!errors?.status}>
-        <FormLabel>Status</FormLabel>
-        <Select
-          id="status"
-          placeholder="Select Post Status"
-          {...register("status", {
-            required: "Status is required",
-          })}
-        >
-          <option>published</option>
-          <option>draft</option>
-          <option>rejected</option>
-        </Select>
-        <FormErrorMessage>{`${errors.status?.message}`}</FormErrorMessage>
-      </FormControl>
-      <FormControl mb="3" isInvalid={!!errors?.categoryId}>
-        <FormLabel>Category</FormLabel>
-        <Select
-          id="categoryId"
-          placeholder="Select Category"
-          {...register("category.id", {
-            required: true,
-          })}
-        >
-          {options?.map((option) => (
-            <option value={option.value} key={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
-        <FormErrorMessage>{`${errors.categoryId?.message}`}</FormErrorMessage>
-      </FormControl>
+      </Field>
+      <Field
+        mb="3"
+        invalid={!!errors?.status}
+        errorText={`${errors?.status?.message}`}
+        label="Status"
+      >
+        <NativeSelectRoot size="sm">
+          <NativeSelectField
+            borderRadius="md"
+            id="status"
+            {...register("status", {
+              required: "Status is required",
+            })}
+            placeholder="Select Post Status"
+          >
+            <option value="published">published</option>
+            <option value="draft">draft</option>
+            <option value="rejected">rejected</option>
+          </NativeSelectField>
+        </NativeSelectRoot>
+      </Field>
+      <Field
+        mb="3"
+        invalid={!!errors?.categoryId}
+        errorText={`${errors?.categoryId?.message}`}
+        label="Category"
+      >
+        <NativeSelectRoot size="sm">
+          <NativeSelectField
+            borderRadius="md"
+            id="categoryId"
+            {...register("category.id", {
+              required: true,
+            })}
+            placeholder="Select Category"
+          >
+            {options?.map((option) => (
+              <option value={option.value} key={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </NativeSelectField>
+        </NativeSelectRoot>
+      </Field>
 
-      <FormControl mb="3" isInvalid={!!errors?.content}>
-        <FormLabel>Content</FormLabel>
+      <Field
+        mb="3"
+        invalid={!!errors?.content}
+        errorText={`${errors?.content?.message}`}
+        label="Content"
+      >
         <Textarea
           id="content"
           {...register("content", {
             required: "content is required",
           })}
         />
-        <FormErrorMessage>{`${errors.content?.message}`}</FormErrorMessage>
-      </FormControl>
+      </Field>
     </Edit>
   )
 }

@@ -3,6 +3,7 @@ import { fieldBooleanTests } from "@refinedev/ui-tests"
 
 import { BooleanField } from "./"
 import { fireEvent, render } from "@test"
+import { Box } from "@chakra-ui/react"
 
 describe("BooleanField", () => {
   fieldBooleanTests.bind(this)(BooleanField)
@@ -27,9 +28,9 @@ describe("BooleanField", () => {
 
       it(`renders boolean field value(${testName}) with correct tooltip text and icon`, async () => {
         const baseDom = render(
-          <div data-testid="default-field">
+          <Box data-testid="default-field">
             <BooleanField value={element} />
-          </div>,
+          </Box>,
         )
 
         fireEvent.mouseOver(baseDom.getByTestId("default-field").children[0])

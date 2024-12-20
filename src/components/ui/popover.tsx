@@ -1,26 +1,9 @@
-import {
-  Popover as ChakraPopover,
-  Portal,
-  type HTMLChakraProps,
-} from "@chakra-ui/react"
-import type { Popover as ArkPopover } from "@ark-ui/react"
+import { Popover as ChakraPopover, Portal } from "@chakra-ui/react"
+import { Popover as ArkPopover } from "@ark-ui/react"
 import { CloseButton } from "./close-button"
 import * as React from "react"
 
-interface ChakraPopoverArrowProps
-  extends HTMLChakraProps<"div", ArkPopover.ArrowBaseProps> {}
-declare const ChakraPopoverArrow: React.ForwardRefExoticComponent<
-  ChakraPopoverArrowProps & React.RefAttributes<HTMLDivElement>
->
-interface ChakraPopoverCloseTriggerProps
-  extends HTMLChakraProps<"button", ArkPopover.CloseTriggerBaseProps> {}
-declare const ChakraPopoverCloseTrigger: React.ForwardRefExoticComponent<
-  ChakraPopoverCloseTriggerProps & React.RefAttributes<HTMLButtonElement>
->
-export interface ChakraPopoverContentProps
-  extends HTMLChakraProps<"div", ArkPopover.ContentBaseProps> {}
-
-interface PopoverContentProps extends ChakraPopoverContentProps {
+interface PopoverContentProps extends ArkPopover.ContentProps {
   portalled?: boolean
   portalRef?: React.RefObject<HTMLElement>
 }
@@ -32,46 +15,48 @@ export const PopoverContent = React.forwardRef<
   const { portalled = true, portalRef, ...rest } = props
   return (
     <Portal disabled={!portalled} container={portalRef}>
-      <ChakraPopover.Positioner>
-        <ChakraPopover.Content ref={ref} {...rest} />
-      </ChakraPopover.Positioner>
+      <ArkPopover.Positioner>
+        <ArkPopover.Content ref={ref} {...rest} />
+      </ArkPopover.Positioner>
     </Portal>
   )
 })
 
 export const PopoverArrow = React.forwardRef<
   HTMLDivElement,
-  ChakraPopoverArrowProps
+  ArkPopover.ArrowProps
 >(function PopoverArrow(props, ref) {
   return (
-    <ChakraPopoverArrow {...props} ref={ref}>
-      <ChakraPopover.ArrowTip />
-    </ChakraPopoverArrow>
+    <ArkPopover.Arrow {...props} ref={ref}>
+      <ArkPopover.ArrowTip />
+    </ArkPopover.Arrow>
   )
 })
 
 export const PopoverCloseTrigger = React.forwardRef<
   HTMLButtonElement,
-  ChakraPopoverCloseTriggerProps
+  ArkPopover.CloseTriggerProps
 >(function PopoverCloseTrigger(props, ref) {
   return (
-    <ChakraPopoverCloseTrigger
-      position="absolute"
-      top="1"
-      insetEnd="1"
+    <ArkPopover.CloseTrigger
+      style={{
+        position: "absolute",
+        top: "1rem",
+        right: "1rem",
+      }}
       {...props}
       asChild
       ref={ref}
     >
       <CloseButton size="sm" />
-    </ChakraPopoverCloseTrigger>
+    </ArkPopover.CloseTrigger>
   )
 })
 
-export const PopoverTitle = ChakraPopover.Title
-export const PopoverDescription = ChakraPopover.Description
+export const PopoverTitle = ArkPopover.Title
+export const PopoverDescription = ArkPopover.Description
 export const PopoverFooter = ChakraPopover.Footer
 export const PopoverHeader = ChakraPopover.Header
-export const PopoverRoot = ChakraPopover.Root
+export const PopoverRoot = ArkPopover.RootProvider
 export const PopoverBody = ChakraPopover.Body
-export const PopoverTrigger = ChakraPopover.Trigger
+export const PopoverTrigger = ArkPopover.Trigger

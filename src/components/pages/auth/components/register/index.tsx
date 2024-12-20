@@ -73,7 +73,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             {providers.map((provider) => (
               <Button
                 key={provider.name}
-                variant="outline"
+                variant="subtle"
                 fontSize="sm"
                 width="full"
                 onClick={() =>
@@ -100,16 +100,14 @@ export const RegisterPage: React.FC<RegisterProps> = ({
 
   const PageTitle =
     title === false ? null : (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "32px",
-          fontSize: "20px",
-        }}
+      <Box
+        display="flex"
+        justifyContent="center"
+        marginBottom="32px"
+        fontSize="20px"
       >
         {title ?? <ThemedTitleV2 collapsed={false} />}
-      </div>
+      </Box>
     )
 
   const allContentProps = { ...cardProps, ...contentProps }
@@ -149,6 +147,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             <Input
               id="email"
               type="text"
+              autoComplete="email"
               placeholder="Email"
               {...register("email", {
                 required: translate(
@@ -169,12 +168,13 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           <Field
             mt="6"
             label={translate("pages.register.fields.password", "Password")}
-            isInvalid={!!errors?.password}
+            invalid={!!errors?.password}
             errorText={errors.password?.message}
           >
             <Input
               id="password"
               type="password"
+              autoComplete="new-password"
               placeholder="Password"
               {...register("password", {
                 required: translate(
@@ -209,13 +209,14 @@ export const RegisterPage: React.FC<RegisterProps> = ({
                 color={importantTextColor}
                 ml="1"
                 fontWeight="bold"
-                as={Link}
-                href="/login"
+                asChild
               >
-                {translate(
-                  "pages.register.signin",
-                  translate("pages.login.signin", "Sign in"),
-                )}
+                <Link to="/login">
+                  {translate(
+                    "pages.register.signin",
+                    translate("pages.login.signin", "Sign in"),
+                  )}
+                </Link>
               </ChakraLink>
             </Box>
           )}
@@ -230,17 +231,13 @@ export const RegisterPage: React.FC<RegisterProps> = ({
               "Have an account?",
             )}
           </span>
-          <ChakraLink
-            color={importantTextColor}
-            ml="1"
-            as={Link}
-            fontWeight="bold"
-            href="/login"
-          >
-            {translate(
-              "pages.register.signin",
-              translate("pages.login.signin", "Sign in"),
-            )}
+          <ChakraLink color={importantTextColor} ml="1" fontWeight="bold" asChild>
+            <Link to="/login">
+              {translate(
+                "pages.register.signin",
+                translate("pages.login.signin", "Sign in"),
+              )}
+            </Link>
           </ChakraLink>
         </Box>
       )}

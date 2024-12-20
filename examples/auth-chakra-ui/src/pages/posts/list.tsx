@@ -10,22 +10,15 @@ import {
   DateField,
 } from "@refinedev/chakra-ui-v3"
 
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  HStack,
-  Box,
-  Select,
-} from "@chakra-ui/react"
+import { Table, HStack, Text, Select, Container } from "@chakra-ui/react"
 
 import { ColumnFilter, ColumnSorter } from "../../components/table"
 import { Pagination } from "../../components/pagination"
 import type { FilterElementProps, ICategory, IPost } from "../../interfaces"
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "../../components/ui/native-select"
 
 export const PostList: React.FC = () => {
   const columns = React.useMemo<ColumnDef<IPost>[]>(
@@ -51,16 +44,17 @@ export const PostList: React.FC = () => {
         meta: {
           filterElement: function render(props: FilterElementProps) {
             return (
-              <Select
-                borderRadius="md"
-                size="sm"
-                placeholder="All Status"
-                {...props}
-              >
-                <option value="published">published</option>
-                <option value="draft">draft</option>
-                <option value="rejected">rejected</option>
-              </Select>
+              <NativeSelectRoot size="sm">
+                <NativeSelectField
+                  borderRadius="md"
+                  {...props}
+                  placeholder="Select Post Status"
+                >
+                  <option value="published">published</option>
+                  <option value="draft">draft</option>
+                  <option value="rejected">rejected</option>
+                </NativeSelectField>
+              </NativeSelectRoot>
             )
           },
           filterOperator: "eq",
@@ -163,54 +157,45 @@ export const PostList: React.FC = () => {
 
   return (
     <List>
-      <TableContainer>
-        <Table variant="simple" whiteSpace="pre-line">
-          <Thead>
+      <Container whiteSpace="pre-line">
+        <Table.Root variant="line">
+          <Table.Header>
             {getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
-                {headerGroup.headers.map((header) => {
-                  return (
-                    <Th key={header.id}>
-                      {!header.isPlaceholder && (
-                        <HStack spacing="xs">
-                          <Box>
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                          </Box>
-                          <HStack spacing="xs">
-                            <ColumnSorter column={header.column} />
-                            <ColumnFilter column={header.column} />
-                          </HStack>
+              <Table.Row key={headerGroup.id}>
+                {headerGroup.headers.map((header) => (
+                  <Table.ColumnHeader key={header.id}>
+                    {!header.isPlaceholder && (
+                      <HStack gap="2">
+                        <Text>
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                        </Text>
+                        <HStack gap="2">
+                          <ColumnSorter column={header.column} />
+                          <ColumnFilter column={header.column} />
                         </HStack>
-                      )}
-                    </Th>
-                  )
-                })}
-              </Tr>
+                      </HStack>
+                    )}
+                  </Table.ColumnHeader>
+                ))}
+              </Table.Row>
             ))}
-          </Thead>
-          <Tbody>
-            {getRowModel().rows.map((row) => {
-              return (
-                <Tr key={row.id}>
-                  {row.getVisibleCells().map((cell) => {
-                    return (
-                      <Td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </Td>
-                    )
-                  })}
-                </Tr>
-              )
-            })}
-          </Tbody>
-        </Table>
-      </TableContainer>
+          </Table.Header>
+          <Table.Body>
+            {getRowModel().rows.map((row) => (
+              <Table.Row key={row.id}>
+                {row.getVisibleCells().map((cell) => (
+                  <Table.Cell key={cell.id}>
+                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  </Table.Cell>
+                ))}
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      </Container>
       <Pagination
         current={current}
         pageCount={pageCount}

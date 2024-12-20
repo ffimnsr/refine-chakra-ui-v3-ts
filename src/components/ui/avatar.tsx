@@ -3,67 +3,85 @@
 import type {
   GroupProps,
   SlotRecipeProps,
-  HTMLChakraProps,
+  SystemStyleObject,
 } from "@chakra-ui/react"
-import { Avatar as ChakraAvatar, Group } from "@chakra-ui/react"
-import type { Avatar as ArkAvatar } from "@ark-ui/react"
+import {
+  Avatar as ChakraAvatar,
+  Group,
+  chakra,
+  useSlotRecipe,
+} from "@chakra-ui/react"
+import { Avatar as ArkAvatar, useAvatar } from "@ark-ui/react"
 import * as React from "react"
 
 type ImageProps = React.ImgHTMLAttributes<HTMLImageElement>
 
-export interface ChakraAvatarFallbackProps
-  extends HTMLChakraProps<"div", ArkAvatar.FallbackProps> {}
-declare const ChakraAvatarFallback: React.ForwardRefExoticComponent<
-  ChakraAvatarFallbackProps & React.RefAttributes<HTMLDivElement>
->
-
-interface ChakraAvatarImageProps
-  extends HTMLChakraProps<"img", ArkAvatar.ImageProps> {}
-declare const ChakraAvatarImage: React.ForwardRefExoticComponent<
-  ChakraAvatarImageProps & React.RefAttributes<HTMLImageElement>
->
-
-export interface AvatarProps extends ChakraAvatar.RootProps {
+export interface AvatarProps
+  extends Omit<ArkAvatar.RootProviderProps, "value"> {
   name?: string
   src?: string
   srcSet?: string
   loading?: ImageProps["loading"]
   icon?: React.ReactElement
   fallback?: React.ReactNode
+  size?: "full" | "2xs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl"
 }
+
+const ArkAvatarRootProvider = chakra(ArkAvatar.RootProvider)
+const ArkAvatarImage = chakra(ArkAvatar.Image)
+const ArkAvatarFallback = chakra(ArkAvatar.Fallback)
 
 export const Avatar = React.forwardRef<HTMLDivElement, AvatarProps>(
   function Avatar(props, ref) {
-    const { name, src, srcSet, loading, icon, fallback, children, ...rest } =
+    const avatar = useAvatar()
+    const recipe = useSlotRecipe({
+      key: "avatar",
+    })
+
+    const { name, src, srcSet, loading, icon, fallback, children, size, ...rest } =
       props
+
+    const styles = recipe({ size: size ?? "sm" })
+
     return (
-      <ChakraAvatar.Root ref={ref} {...rest}>
-        <AvatarFallback name={name} icon={icon}>
+      <ArkAvatarRootProvider
+        css={styles.root}
+        value={avatar}
+        ref={ref}
+        {...rest}
+      >
+        <AvatarFallback css={styles.fallback} name={name} icon={icon}>
           {fallback}
         </AvatarFallback>
-        <ChakraAvatarImage src={src} srcSet={srcSet} loading={loading} />
+        <ArkAvatarImage
+          css={styles.image}
+          src={src}
+          srcSet={srcSet}
+          loading={loading}
+        />
         {children}
-      </ChakraAvatar.Root>
+      </ArkAvatarRootProvider>
     )
   },
 )
 
-interface AvatarFallbackProps extends ChakraAvatarFallbackProps {
+interface AvatarFallbackProps extends ArkAvatar.FallbackProps {
   name?: string
   icon?: React.ReactElement
+  css?: SystemStyleObject
 }
 
 const AvatarFallback = React.forwardRef<HTMLDivElement, AvatarFallbackProps>(
   function AvatarFallback(props, ref) {
     const { name, icon, children, ...rest } = props
     return (
-      <ChakraAvatarFallback ref={ref} {...rest}>
+      <ArkAvatarFallback ref={ref} {...rest}>
         {children}
         {name != null && children == null && <>{getInitials(name)}</>}
         {name == null && children == null && (
           <ChakraAvatar.Icon asChild={!!icon}>{icon}</ChakraAvatar.Icon>
         )}
-      </ChakraAvatarFallback>
+      </ArkAvatarFallback>
     )
   },
 )

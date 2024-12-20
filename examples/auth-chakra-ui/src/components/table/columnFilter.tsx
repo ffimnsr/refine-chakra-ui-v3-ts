@@ -1,19 +1,16 @@
 import React, { useState } from "react"
 import {
   Input,
-  Menu,
   IconButton,
-  MenuButton,
-  MenuList,
   VStack,
   HStack,
 } from "@chakra-ui/react"
-import { IconFilter, IconX, IconCheck } from "@tabler/icons-react"
+import { FaFilter, FaX, FaCheck } from "react-icons/fa6"
 
 import type { ColumnButtonProps } from "../../interfaces"
+import { MenuContent, MenuRoot, MenuTrigger } from "../ui/menu"
 
 export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
-  // eslint-disable-next-line
   const [state, setState] = useState(null as null | { value: any })
 
   if (!column.getCanFilter()) {
@@ -27,7 +24,6 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
 
   const close = () => setState(null)
 
-  // eslint-disable-next-line
   const change = (value: any) => setState({ value })
 
   const clear = () => {
@@ -66,27 +62,30 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
   }
 
   return (
-    <Menu isOpen={!!state} onClose={close}>
-      <MenuButton
-        onClick={open}
-        as={IconButton}
-        aria-label="Options"
-        icon={<IconFilter size="16" />}
-        variant="ghost"
-        size="xs"
-      />
-      <MenuList p="2">
+    <MenuRoot open={!!state} onExitComplete={close}>
+      <MenuTrigger asChild>
+        <IconButton
+          onClick={open}
+          aria-label="Options"
+          variant="subtle"
+          size="xs"
+        >
+          <FaFilter size="16" />
+        </IconButton>
+      </MenuTrigger>
+      <MenuContent>
         {!!state && (
+
           <VStack align="flex-start">
             {renderFilterElement()}
-            <HStack spacing="1">
+            <HStack gap="1">
               <IconButton
                 aria-label="Clear"
                 size="sm"
                 colorScheme="red"
                 onClick={clear}
               >
-                <IconX size={18} />
+                <FaX size={18} />
               </IconButton>
               <IconButton
                 aria-label="Save"
@@ -94,12 +93,12 @@ export const ColumnFilter: React.FC<ColumnButtonProps> = ({ column }) => {
                 onClick={save}
                 colorScheme="green"
               >
-                <IconCheck size={18} />
+                <FaCheck size={18} />
               </IconButton>
             </HStack>
           </VStack>
         )}
-      </MenuList>
-    </Menu>
+      </MenuContent>
+    </MenuRoot>
   )
 }

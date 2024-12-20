@@ -1,8 +1,5 @@
-import { Create } from "@refinedev/chakra-ui"
+import { Create } from "@refinedev/chakra-ui-v3"
 import {
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
   Input,
   Select,
 } from "@chakra-ui/react"

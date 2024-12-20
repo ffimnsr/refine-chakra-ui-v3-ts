@@ -1,12 +1,12 @@
 import React from "react"
 import type { NotificationProvider } from "@refinedev/core"
 import { UndoableNotification } from "@components/undoableNotification"
-import { createToaster } from "@chakra-ui/react"
+import { createToaster } from "@ark-ui/react"
 
 export const useNotificationProvider = (): NotificationProvider => {
   const toast = createToaster({
-    position: "top-right",
-    isClosable: true,
+    placement: "top-end",
+    overlap: true,
   })
 
   return {
@@ -19,9 +19,9 @@ export const useNotificationProvider = (): NotificationProvider => {
       cancelMutation,
     }) => {
       if (type === "progress") {
-        if (key && toast.isActive(key)) {
+        if (key && toast.isVisible(key)) {
           toast.update(key, {
-            render: () => (
+            description: (
               <UndoableNotification
                 notificationKey={key}
                 message={message}
@@ -31,9 +31,9 @@ export const useNotificationProvider = (): NotificationProvider => {
             ),
           })
         } else {
-          toast({
+          toast.create({
             id: key,
-            render: () => (
+            description: (
               <UndoableNotification
                 notificationKey={key}
                 message={message}
@@ -44,22 +44,22 @@ export const useNotificationProvider = (): NotificationProvider => {
           })
         }
       } else {
-        if (key && toast.isActive(key)) {
+        if (key && toast.isVisible(key)) {
           toast.update(key, {
             title: message,
-            status: type,
             description,
+            type: type,
           })
         } else {
-          toast({
+          toast.create({
             id: key,
             title: message,
             description,
-            status: type,
+            type: type,
           })
         }
       }
     },
-    close: (key) => toast.close(key),
+    close: (key) => toast.dismiss(key),
   }
 }

@@ -23,11 +23,11 @@ Object.defineProperty(window, "TextDecoder", {
   value: TextDecoder,
 })
 
-global.structuredClone = v => JSON.parse(JSON.stringify(v));
-Object.defineProperty(window, "structuredClone", {
-  writable: true,
-  value: global.structuredClone,
-})
+// global.structuredClone = v => JSON.parse(JSON.stringify(v));
+// Object.defineProperty(window, "structuredClone", {
+//   writable: true,
+//   value: global.structuredClone,
+// })
 
 class ResizeObserver {
   observe() {

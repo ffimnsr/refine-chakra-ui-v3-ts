@@ -1,11 +1,10 @@
 import React, { type ReactNode } from "react"
 import { Route, Routes } from "react-router-dom"
-import { ChakraProvider, defaultSystem } from "@chakra-ui/react"
+import { Box } from "@chakra-ui/react"
 import { render, TestWrapper, type ITestWrapperProps } from "@test"
 
-import { Breadcrumb, type BreadcrumbProps } from "./"
+import { Breadcrumb } from "./"
 import { breadcrumbTests } from "@refinedev/ui-tests"
-import { refineTheme } from "src/theme"
 
 const renderBreadcrumb = (
   children: ReactNode,
@@ -21,25 +20,17 @@ const renderBreadcrumb = (
   )
 }
 
-const Wrapper: React.FC<BreadcrumbProps> = (props) => {
-  return (
-    <ChakraProvider value={defaultSystem}>
-      <Breadcrumb {...props} />
-    </ChakraProvider>
-  );
-};
-
-const DummyDashboard = () => <div>Dashboard</div>
+const DummyDashboard = () => <Box>Dashboard</Box>
 
 describe("Breadcrumb", () => {
   beforeAll(() => {
     jest.spyOn(console, "warn").mockImplementation(jest.fn())
   })
 
-  breadcrumbTests.bind(this)(Wrapper)
+  breadcrumbTests.bind(this)(Breadcrumb)
 
   it("should render home icon", async () => {
-    const { container } = renderBreadcrumb(<Wrapper />, {
+    const { container } = renderBreadcrumb(<Breadcrumb />, {
       resources: [{ name: "posts" }],
       routerInitialEntries: ["/posts/create"],
       DashboardPage: DummyDashboard,
@@ -48,8 +39,8 @@ describe("Breadcrumb", () => {
     expect(container.querySelector("svg")).toBeTruthy()
   })
 
-  it("should not render home icon with 'showhHome' props", async () => {
-    const { container } = renderBreadcrumb(<Wrapper showHome={false} />, {
+  it("should not render home icon with 'showHome' props", async () => {
+    const { container } = renderBreadcrumb(<Breadcrumb showHome={false} />, {
       resources: [{ name: "posts" }],
       routerInitialEntries: ["/posts/create"],
       DashboardPage: DummyDashboard,
@@ -59,7 +50,7 @@ describe("Breadcrumb", () => {
   })
 
   it("should render breadcrumb items", async () => {
-    const { getByText } = renderBreadcrumb(<Wrapper />, {
+    const { getByText } = renderBreadcrumb(<Breadcrumb />, {
       resources: [{ name: "posts" }],
       routerInitialEntries: ["/posts/create"],
     })

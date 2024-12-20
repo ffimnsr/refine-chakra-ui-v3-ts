@@ -4,7 +4,7 @@ import {
   RefineButtonClassNames,
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
-import { IconPencil } from "@tabler/icons-react"
+import { LuPencil } from "react-icons/lu"
 import { Button, IconButton } from "@chakra-ui/react"
 
 import type { EditButtonProps } from "../types"
@@ -61,7 +61,7 @@ export const EditButton: React.FC<EditButtonProps> = ({
           className={RefineButtonClassNames.EditButton}
           {...rest}
         >
-          <IconPencil size={20} {...svgIconProps} />
+          <LuPencil size={20} {...svgIconProps} />
         </IconButton>
       ) : (
         <Button
@@ -72,7 +72,7 @@ export const EditButton: React.FC<EditButtonProps> = ({
           className={RefineButtonClassNames.EditButton}
           {...rest}
         >
-          <IconPencil size={20} {...svgIconProps} />
+          <LuPencil size={20} {...svgIconProps} />
           {children ?? label}
         </Button>
       )}
