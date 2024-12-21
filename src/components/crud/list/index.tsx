@@ -12,6 +12,7 @@ import { Box, Heading } from "@chakra-ui/react"
 import { CreateButton, Breadcrumb, type CreateButtonProps } from "@components"
 import type { ListProps } from "../types"
 import { RefinePageHeaderClassNames } from "@refinedev/ui-types"
+import { useColorModeValue } from "@components"
 
 export const List: React.FC<ListProps> = (props) => {
   const {
@@ -99,7 +100,7 @@ export const List: React.FC<ListProps> = (props) => {
   }
 
   return (
-    <Box bg="chakra-body-bg" borderRadius="md" px="4" py="3" {...wrapperProps}>
+    <Box backgroundColor={useColorModeValue("white", "gray.800")}  borderRadius="md" px="4" py="3" {...wrapperProps}>
       <Box
         mb="3"
         display="flex"

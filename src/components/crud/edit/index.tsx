@@ -31,6 +31,7 @@ import {
 } from "@components"
 import type { EditProps } from "../types"
 import { RefinePageHeaderClassNames } from "@refinedev/ui-types"
+import { useColorModeValue } from "@components"
 
 export const Edit: React.FC<EditProps> = (props) => {
   const {
@@ -225,7 +226,7 @@ export const Edit: React.FC<EditProps> = (props) => {
   return (
     <Box
       position="relative"
-      bg="chakra-body-bg"
+      backgroundColor={useColorModeValue("white", "gray.800")}
       borderRadius="md"
       px="4"
       py="3"

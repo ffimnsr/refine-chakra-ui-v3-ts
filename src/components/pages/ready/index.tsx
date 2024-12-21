@@ -14,7 +14,7 @@ export const ReadyPage: React.FC<RefineReadyPageProps> = () => {
       alignItems="center"
       justifyContent="center"
       minH="100vh"
-      bg="sider.background"
+      bgColor="sider.background"
       bgImage="https://refine.ams3.cdn.digitaloceanspaces.com/login-background/background.png"
     >
       <Image

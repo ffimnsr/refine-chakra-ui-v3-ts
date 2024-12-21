@@ -1,9 +1,3 @@
-export * from "./layout"
-export * from "./layout/header"
-export * from "./layout/sider"
-export * from "./layout/title"
-export * from "./layout/types"
-
 export * from "./themedLayoutV2"
 export * from "./themedLayoutV2/header"
 export * from "./themedLayoutV2/sider"

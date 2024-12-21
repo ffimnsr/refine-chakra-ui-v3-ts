@@ -282,10 +282,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
               alignItems="center"
               height="64px"
               fontSize="14px"
-              bg={useColorModeValue(
-                "refine.sider.header.light",
-                "refine.sider.header.dark",
-              )}
+              bgColor="refine.sider.header"
               borderBottom="1px"
               borderBottomColor={useColorModeValue("gray.200", "gray.700")}
             >
@@ -294,10 +291,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
             <VStack
               alignItems="start"
               flexGrow={1}
-              bg={useColorModeValue(
-                "refine.sider.bg.light",
-                "refine.sider.bg.dark",
-              )}
+              bgColor="refine.sider.bg"
               overflowY="auto"
               overflowX="hidden"
             >
@@ -334,10 +328,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           borderRightColor={useColorModeValue("gray.200", "gray.700")}
           borderBottom="1px"
           borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-          bg={useColorModeValue(
-            "refine.sider.header.light",
-            "refine.sider.header.dark",
-          )}
+          bgColor="refine.sider.header"
         >
           <RenderToTitle collapsed={siderCollapsed} />
         </Box>
@@ -348,10 +339,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           flexGrow={1}
           borderRight="1px"
           borderRightColor={useColorModeValue("gray.200", "gray.700")}
-          bg={useColorModeValue(
-            "refine.sider.bg.light",
-            "refine.sider.bg.dark",
-          )}
+          bgColor="refine.sider.bg"
         >
           <Box width="full" overflowY="auto" overflowX="hidden">
             {renderSider()}

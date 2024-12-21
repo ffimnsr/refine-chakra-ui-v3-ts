@@ -18,11 +18,6 @@ export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
     v3LegacyAuthProviderCompatible: Boolean(authProvider?.isLegacy),
   })
 
-  const bgColor = useColorModeValue(
-    "refine.header.bg.light",
-    "refine.header.bg.dark",
-  )
-
   let stickyProps: BoxProps = {}
   if (sticky) {
     stickyProps = {
@@ -40,7 +35,7 @@ export const ThemedHeaderV2: React.FC<RefineThemedLayoutV2HeaderProps> = ({
       alignItems="center"
       w="full"
       height="64px"
-      bg={bgColor}
+      bgColor="refine.header.bg"
       borderBottom="1px"
       borderBottomColor={useColorModeValue("gray.200", "gray.700")}
       {...stickyProps}

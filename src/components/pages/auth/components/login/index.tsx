@@ -119,7 +119,6 @@ export const LoginPage: React.FC<LoginProps> = ({
   const allContentProps = { ...cardProps, ...contentProps }
   const content = (
     <Box
-      bg="chakra-body-bg"
       borderWidth="1px"
       borderColor={useColorModeValue("gray.200", "gray.700")}
       backgroundColor={useColorModeValue("white", "gray.800")}

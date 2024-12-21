@@ -15,6 +15,7 @@ import { LuArrowLeft } from "react-icons/lu"
 import { Breadcrumb, SaveButton, type SaveButtonProps } from "@components"
 import type { CreateProps } from "../types"
 import { RefinePageHeaderClassNames } from "@refinedev/ui-types"
+import { useColorModeValue } from "@components"
 
 export const Create: React.FC<CreateProps> = (props) => {
   const {
@@ -134,7 +135,7 @@ export const Create: React.FC<CreateProps> = (props) => {
   return (
     <Box
       position="relative"
-      bg="bg.panel"
+      backgroundColor={useColorModeValue("white", "gray.800")}
       borderRadius="md"
       px="4"
       py="3"

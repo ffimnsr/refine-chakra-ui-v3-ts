@@ -26,14 +26,13 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
     placement: "bottom-end",
   })
 
-
   return (
     <Box
       display="flex"
       alignItems="center"
       justifyContent="space-between"
       gap={2}
-      bg={bgColor}
+      bgColor={bgColor}
       shadow="md"
       minW={320}
       p={2}

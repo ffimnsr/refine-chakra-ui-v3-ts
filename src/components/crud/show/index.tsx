@@ -27,6 +27,7 @@ import {
 } from "@components"
 import type { ShowProps } from "../types"
 import { RefinePageHeaderClassNames } from "@refinedev/ui-types"
+import { useColorModeValue } from "@components"
 
 export const Show: React.FC<ShowProps> = (props) => {
   const {
@@ -208,7 +209,7 @@ export const Show: React.FC<ShowProps> = (props) => {
   return (
     <Box
       position="relative"
-      bg="chakra-body-bg"
+      backgroundColor={useColorModeValue("white", "gray.800")}
       borderRadius="md"
       px="4"
       py="3"
