@@ -1,4 +1,4 @@
-import { Create } from "@refinedev/chakra-ui-v3"
+import { Create } from "@ffimnsr/refine-chakra-ui-v3"
 import { Input, Select, Textarea } from "@chakra-ui/react"
 import { useSelect } from "@refinedev/core"
 import { useForm } from "@refinedev/react-hook-form"

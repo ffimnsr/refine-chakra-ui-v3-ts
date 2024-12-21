@@ -8,7 +8,7 @@ import {
   ThemedLayoutV2,
   ErrorComponent,
   useNotificationProvider,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 import dataProvider from "@refinedev/simple-rest"
 import routerProvider, {
   NavigateToResource,

@@ -1,5 +1,5 @@
 import { useShow, useOne } from "@refinedev/core"
-import { Show, MarkdownField } from "@refinedev/chakra-ui-v3"
+import { Show, MarkdownField } from "@ffimnsr/refine-chakra-ui-v3"
 
 import { Heading, Text, Spacer } from "@chakra-ui/react"
 

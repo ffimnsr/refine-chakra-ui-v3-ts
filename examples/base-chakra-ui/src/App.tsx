@@ -4,7 +4,7 @@ import {
   ThemedLayoutV2,
   useNotificationProvider,
   RefineThemes,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 import { ChakraProvider } from "@chakra-ui/react"
 import dataProvider from "@refinedev/simple-rest"
 import routerProvider, {

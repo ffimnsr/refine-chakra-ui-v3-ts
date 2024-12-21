@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import { HStack, Button, Box } from "@chakra-ui/react"
-import { IconChevronRight, IconChevronLeft } from "@tabler/icons-react"
-import { usePagination } from "@refinedev/chakra-ui-v3"
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa6"
+import { usePagination } from "@ffimnsr/refine-chakra-ui-v3"
 
 import { IconButton } from "@chakra-ui/react"
 
@@ -23,7 +23,7 @@ export const Pagination: FC<PaginationProps> = ({
 
   return (
     <Box display="flex" justifyContent="flex-end">
-      <HStack my="3" spacing="1">
+      <HStack my="3" gap="1">
         {pagination?.prev && (
           <IconButton
             aria-label="previous page"
@@ -31,7 +31,7 @@ export const Pagination: FC<PaginationProps> = ({
             disabled={!pagination?.prev}
             variant="outline"
           >
-            <IconChevronLeft size="18" />
+            <FaChevronLeft size="18" />
           </IconButton>
         )}
 
@@ -54,7 +54,7 @@ export const Pagination: FC<PaginationProps> = ({
             onClick={() => setCurrent(current + 1)}
             variant="outline"
           >
-            <IconChevronRight size="18" />
+            <FaChevronRight size="18" />
           </IconButton>
         )}
       </HStack>

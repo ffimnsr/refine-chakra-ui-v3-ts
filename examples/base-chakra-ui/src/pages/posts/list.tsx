@@ -8,7 +8,7 @@ import {
   EditButton,
   DeleteButton,
   DateField,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 
 import { Table, HStack, Text, Select, Container } from "@chakra-ui/react"
 

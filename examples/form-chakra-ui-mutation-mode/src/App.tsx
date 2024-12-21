@@ -4,7 +4,7 @@ import {
   ThemedLayoutV2,
   RefineThemes,
   useNotificationProvider,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 import { ChakraProvider } from "@chakra-ui/react"
 import dataProvider from "@refinedev/simple-rest"
 import routerProvider, {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
   return (
     <BrowserRouter>
       <GitHubBanner />
-      <ChakraProvider theme={RefineThemes.Blue}>
+      <ChakraProvider value={RefineThemes.Default}>
         <Refine
           routerProvider={routerProvider}
           dataProvider={dataProvider(API_URL)}

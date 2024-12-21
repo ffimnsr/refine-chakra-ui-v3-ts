@@ -1,6 +1,7 @@
 import React from "react"
 import type { MutationMode } from "@refinedev/core"
-import { Radio, RadioGroup, VStack, Stack, Text, Box } from "@chakra-ui/react"
+import { VStack, Stack, Text, Box, HStack } from "@chakra-ui/react"
+import { Radio, RadioGroup } from "../ui/radio"
 
 interface Props {
   currentMutationMode: MutationMode
@@ -13,30 +14,31 @@ const MutationModePicker: React.FC<Props> = ({
 }) => {
   return (
     <Box
-      boxShadow="dark-lg"
+      boxShadow="lg"
+      boxShadowColor="gray.200"
+      bgColor="white"
       p="6"
       rounded="md"
-      sx={{
-        position: "fixed",
-        bottom: "16px",
-        left: "50%",
-        transform: "translateX(-50%)",
-        padding: "8px 16px",
-      }}
+      position="fixed"
+      bottom="16px"
+      left="50%"
+      transform="translateX(-50%)"
+      paddingX="10px"
+      paddingY="16px"
     >
       <VStack align="center">
         <RadioGroup
           name="mutation-mode"
-          onChange={onMutationModeChange}
+          onValueChange={(e) => onMutationModeChange(e.value as MutationMode)}
           value={currentMutationMode}
         >
-          <Stack direction="row">
+          <HStack gap={4}>
             <Radio value={"pessimistic"}>Pessimistic</Radio>
             <Radio value={"optimistic"}>Optimistic</Radio>
             <Radio value={"undoable"}>Undoable</Radio>
-          </Stack>
+          </HStack>
         </RadioGroup>
-        <Text>
+        <Text padding={4}>
           <a
             href="https://refine.dev/docs/advanced-tutorials/mutation-mode/"
             target="_blank"

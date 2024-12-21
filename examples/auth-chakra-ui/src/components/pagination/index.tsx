@@ -1,7 +1,7 @@
 import type { FC } from "react"
 import { HStack, Button, Box } from "@chakra-ui/react"
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa6"
-import { usePagination } from "@refinedev/chakra-ui-v3"
+import { usePagination } from "@ffimnsr/refine-chakra-ui-v3"
 
 import { IconButton } from "@chakra-ui/react"
 

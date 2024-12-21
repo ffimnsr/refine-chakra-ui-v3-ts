@@ -11,7 +11,7 @@ importers:
       '@chakra-ui/react':
         specifier: ^3.2.3
         version: 3.2.3(@emotion/react@11.14.0(@types/react@18.3.17)(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@refinedev/chakra-ui-v3':
+      '@ffimnsr/refine-chakra-ui-v3':
         specifier: ../..
         version: link:../..
       '@refinedev/cli':

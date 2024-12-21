@@ -3,7 +3,7 @@ import {
   useNotificationProvider,
   RefineThemes,
   ErrorComponent,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 import { BrowserRouter, Routes, Route } from "react-router"
 import { ChakraProvider } from "@chakra-ui/react"
 import dataProvider from "@refinedev/simple-rest"

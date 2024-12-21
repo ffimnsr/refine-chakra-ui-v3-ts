@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^3.2.3",
-    "@refinedev/chakra-ui-v3": "../..",
+    "@ffimnsr/refine-chakra-ui-v3": "../..",
     "@refinedev/cli": "^2.16.42",
     "@refinedev/core": "^4.57.1",
     "@refinedev/react-hook-form": "^4.9.3",

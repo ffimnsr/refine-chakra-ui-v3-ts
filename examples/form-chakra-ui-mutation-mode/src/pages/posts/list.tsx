@@ -8,18 +8,17 @@ import {
   EditButton,
   DeleteButton,
   DateField,
-} from "@refinedev/chakra-ui-v3"
+} from "@ffimnsr/refine-chakra-ui-v3"
 
-import {
-  Table,
-  HStack,
-  Text,
-  Select,
-} from "@chakra-ui/react"
+import { Table, HStack, Text, Select, Container } from "@chakra-ui/react"
 
 import { ColumnFilter, ColumnSorter } from "../../components/table"
 import { Pagination } from "../../components/pagination"
 import type { FilterElementProps, ICategory, IPost } from "../../interfaces"
+import {
+  NativeSelectField,
+  NativeSelectRoot,
+} from "../../components/ui/native-select"
 
 export const PostList: React.FC = () => {
   const columns = React.useMemo<ColumnDef<IPost>[]>(
@@ -45,16 +44,17 @@ export const PostList: React.FC = () => {
         meta: {
           filterElement: function render(props: FilterElementProps) {
             return (
-              <Select
-                borderRadius="md"
-                size="sm"
-                placeholder="All Status"
-                {...props}
-              >
-                <option value="published">published</option>
-                <option value="draft">draft</option>
-                <option value="rejected">rejected</option>
-              </Select>
+              <NativeSelectRoot size="sm">
+                <NativeSelectField
+                  borderRadius="md"
+                  {...props}
+                  placeholder="Select Post Status"
+                >
+                  <option value="published">published</option>
+                  <option value="draft">draft</option>
+                  <option value="rejected">rejected</option>
+                </NativeSelectField>
+              </NativeSelectRoot>
             )
           },
           filterOperator: "eq",
@@ -132,7 +132,7 @@ export const PostList: React.FC = () => {
       initialSorter: [
         {
           field: "id",
-          order: "asc",
+          order: "desc",
         },
       ],
     },
@@ -157,45 +157,45 @@ export const PostList: React.FC = () => {
 
   return (
     <List>
-      <TableContainer whiteSpace="pre-line">
-        <Table variant="simple">
-          <Thead>
+      <Container whiteSpace="pre-line">
+        <Table.Root variant="line">
+          <Table.Header>
             {getHeaderGroups().map((headerGroup) => (
-              <Tr key={headerGroup.id}>
+              <Table.Row key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <Th key={header.id}>
+                  <Table.ColumnHeader key={header.id}>
                     {!header.isPlaceholder && (
-                      <HStack spacing="2">
+                      <HStack gap="2">
                         <Text>
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext(),
                           )}
                         </Text>
-                        <HStack spacing="2">
+                        <HStack gap="2">
                           <ColumnSorter column={header.column} />
                           <ColumnFilter column={header.column} />
                         </HStack>
                       </HStack>
                     )}
-                  </Th>
+                  </Table.ColumnHeader>
                 ))}
-              </Tr>
+              </Table.Row>
             ))}
-          </Thead>
-          <Tbody>
+          </Table.Header>
+          <Table.Body>
             {getRowModel().rows.map((row) => (
-              <Tr key={row.id}>
+              <Table.Row key={row.id}>
                 {row.getVisibleCells().map((cell) => (
-                  <Td key={cell.id}>
+                  <Table.Cell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </Td>
+                  </Table.Cell>
                 ))}
-              </Tr>
+              </Table.Row>
             ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
+          </Table.Body>
+        </Table.Root>
+      </Container>
       <Pagination
         current={current}
         pageCount={pageCount}
