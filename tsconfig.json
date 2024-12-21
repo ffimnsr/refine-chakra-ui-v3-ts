@@ -28,6 +28,8 @@
       "@definitions": ["src/definitions"],
       "@contexts/*": ["src/contexts/*"],
       "@contexts": ["src/contexts"],
+      "@theme/*": ["src/theme/*"],
+      "@theme": ["src/theme"],
       "@test/*": ["test/*"],
       "@test": ["test"]
     }

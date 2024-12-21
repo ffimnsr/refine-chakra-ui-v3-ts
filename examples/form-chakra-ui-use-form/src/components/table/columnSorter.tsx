@@ -21,7 +21,7 @@ export const ColumnSorter: React.FC<ColumnButtonProps> = ({ column }) => {
       size="xs"
       onClick={column.getToggleSortingHandler()}
       icon={<ColumnSorterIcon sorted={sorted} />}
-      variant={sorted ? "light" : "transparent"}
+      variant={sorted ? "subtle" : "plain"}
       color={sorted ? "primary" : "gray"}
     />
   )

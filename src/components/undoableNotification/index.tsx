@@ -38,7 +38,7 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
       minW={320}
       p={2}
     >
-      <ProgressCircleRoot value={undoableTimeout * 20} color="green">
+      <ProgressCircleRoot value={undoableTimeout * 20} color="green.400">
         <ProgressCircleValueText>{undoableTimeout}</ProgressCircleValueText>
       </ProgressCircleRoot>
       <Text>{message}</Text>
