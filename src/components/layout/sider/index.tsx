@@ -14,12 +14,7 @@ import {
   useTranslate,
   useWarnAboutChange,
 } from "@refinedev/core"
-import { Box, VStack } from "@chakra-ui/react"
-import {
-  Accordion as ArkAccordion,
-  useAccordion,
-  useDialog,
-} from "@ark-ui/react"
+import { Box, VStack, useDrawer, useAccordion, Accordion } from "@chakra-ui/react"
 import {
   LuList,
   LuChevronRight,
@@ -32,6 +27,12 @@ import {
 import { Title as DefaultTitle } from "@components"
 import type { RefineLayoutSiderProps } from "../types"
 import { Button } from "@components/ui/button"
+import {
+  AccordionItem,
+  AccordionItemContent,
+  AccordionRoot,
+  AccordionRootProvider,
+} from "@components/ui/accordion"
 import { IconButton } from "@components/ui/icon-button"
 import {
   DrawerBackdrop,
@@ -47,7 +48,7 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
   meta,
 }) => {
   const [collapsed, setCollapsed] = useState(false)
-  const drawer = useDialog({})
+  const drawer = useDrawer({})
 
   const routerType = useRouterType()
   const NewLink = useLink()
@@ -106,21 +107,10 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
             resource: item,
           }}
         >
-          <ArkAccordion.RootProvider
-            value={accordion}
-            style={{ width: "full" }}
-          >
-            <ArkAccordion.Item value={item.key || ""}>
+          <AccordionRootProvider value={accordion} w="full">
+            <AccordionItem value={item.key || ""}>
               <Tooltip content={label} {...commonTooltipProps}>
-                <ArkAccordion.ItemTrigger
-                  style={{
-                    paddingLeft: 6,
-                    paddingRight: 4,
-                    paddingTop: 3,
-                    paddingBottom: 3,
-                    width: "full",
-                  }}
-                >
+                <Accordion.ItemTrigger px={4} py={3} w="full">
                   <Button
                     width="full"
                     variant="plain"
@@ -147,23 +137,21 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
                     )}
                     {isParent ? <LuChevronDown /> : undefined}
                   </Button>
-                </ArkAccordion.ItemTrigger>
+                </Accordion.ItemTrigger>
               </Tooltip>
 
               {isParent && (
-                <ArkAccordion.ItemContent
-                  style={{
-                    padding: 0,
-                    paddingLeft: collapsed && !drawer.open ? 0 : 4,
-                  }}
+                <AccordionItemContent
+                  p={0}
+                  pl={collapsed && !drawer.open ? 0 : 4}
                 >
-                  <ArkAccordion.Root style={{ width: "full" }} collapsible>
+                  <AccordionRoot w="full" collapsible>
                     {renderTreeView(children)}
-                  </ArkAccordion.Root>
-                </ArkAccordion.ItemContent>
+                  </AccordionRoot>
+                </AccordionItemContent>
               )}
-            </ArkAccordion.Item>
-          </ArkAccordion.RootProvider>
+            </AccordionItem>
+          </AccordionRootProvider>
         </CanAccess>
       )
     })
@@ -283,11 +271,9 @@ export const Sider: React.FC<RefineLayoutSiderProps> = ({
       <DrawerRootProvider value={drawer}>
         <DrawerBackdrop />
         <DrawerContent
-          style={{
-            width: "200px",
-            maxWidth: "200px",
-            backgroundColor: "sider.background",
-          }}
+          w="200px"
+          maxW="200px"
+          bgColor="bg.subtle"
         >
           <Box display="flex" justifyContent="center" py={4}>
             <RenderToTitle collapsed={false} />

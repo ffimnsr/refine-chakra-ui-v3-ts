@@ -14,15 +14,13 @@ import {
   useTranslate,
   useWarnAboutChange,
 } from "@refinedev/core"
-import { Box, VStack } from "@chakra-ui/react"
-import { useAccordion } from "@ark-ui/react"
+import { Accordion, Box, VStack, useAccordion } from "@chakra-ui/react"
 import { LuList, LuGauge, LuLogOut } from "react-icons/lu"
 
 import { ThemedTitleV2 as DefaultTitle } from "../title"
 import type { RefineThemedLayoutV2SiderProps } from "../types"
 import { useThemedLayoutContext } from "@hooks"
 import { Tooltip, type TooltipProps } from "@components/ui/tooltip"
-import { Accordion as ArkAccordion } from "@ark-ui/react"
 import {
   DrawerBackdrop,
   DrawerContent,
@@ -31,6 +29,7 @@ import {
 import { Button } from "@components/ui/button"
 import { useColorModeValue } from "@components/ui/color-mode"
 import { LuChevronDown } from "react-icons/lu"
+import { AccordionItem, AccordionItemContent, AccordionItemTrigger, AccordionRoot, AccordionRootProvider } from "@components/ui/accordion"
 
 export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
   Title: TitleFromProps,
@@ -89,9 +88,6 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
           }
         : undefined
 
-      const linkStyle: CSSProperties =
-        activeItemDisabled && isSelected ? { pointerEvents: "none" } : {}
-
       return (
         <CanAccess
           key={item.key}
@@ -101,16 +97,14 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
             resource: item,
           }}
         >
-          <ArkAccordion.RootProvider
-            style={{
-              width: "full",
-              marginBottom: "2em",
-            }}
+          <AccordionRootProvider
+            w="full"
+            mb="2em"
             value={accordion}
           >
-            <ArkAccordion.Item value={item.key || ""}>
+            <AccordionItem value={item.key || ""}>
               <Tooltip content={label} {...commonTooltipProps}>
-                <ArkAccordion.ItemTrigger asChild>
+                <Accordion.ItemTrigger asChild>
                   <Button
                     colorScheme={isSelected ? "brand" : "gray"}
                     borderRadius={0}
@@ -138,7 +132,7 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
                       borderRight: "4px",
                       borderRightColor: "brand.200",
                     }}
-                    style={linkStyle}
+                    pointerEvents={activeItemDisabled && isSelected ? "none" : "inherit"}
                     {...linkProps}
                   >
                     {icon ??
@@ -154,28 +148,24 @@ export const ThemedSiderV2: React.FC<RefineThemedLayoutV2SiderProps> = ({
                     )}
                     {isParent ? <LuChevronDown color="brand.100" /> : undefined}
                   </Button>
-                </ArkAccordion.ItemTrigger>
+                </Accordion.ItemTrigger>
               </Tooltip>
 
               {isParent && (
-                <ArkAccordion.ItemContent
-                  style={{
-                    padding: 0,
-                    paddingLeft: siderCollapsed && !mobileSiderOpen ? 0 : 4,
-                  }}
+                <AccordionItemContent
+                  p={0}
+                  pl={siderCollapsed && !mobileSiderOpen ? 0 : 4}
                 >
-                  <ArkAccordion.Root
-                    style={{
-                      width: "full",
-                    }}
+                  <AccordionRoot
+                    w="full"
                     collapsible
                   >
                     {renderTreeView(children)}
-                  </ArkAccordion.Root>
-                </ArkAccordion.ItemContent>
+                  </AccordionRoot>
+                </AccordionItemContent>
               )}
-            </ArkAccordion.Item>
-          </ArkAccordion.RootProvider>
+            </AccordionItem>
+          </AccordionRootProvider>
         </CanAccess>
       )
     })

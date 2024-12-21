@@ -1,13 +1,13 @@
-import React from "react"
+"use client"
+
 import {
-  type HTMLChakraProps,
+  Toaster as ChakraToaster,
   Portal,
   Spinner,
   Stack,
   Toast,
   createToaster,
 } from "@chakra-ui/react"
-import { Toaster as ArkToaster } from "@ark-ui/react"
 
 export const toaster = createToaster({
   placement: "bottom-end",
@@ -17,7 +17,7 @@ export const toaster = createToaster({
 export const Toaster = () => {
   return (
     <Portal>
-      <ArkToaster toaster={toaster} style={{ left: "4px", right: "4px" }}>
+      <ChakraToaster toaster={toaster} insetInline={{ mdDown: "4" }}>
         {(toast) => (
           <Toast.Root width={{ md: "sm" }}>
             {toast.type === "loading" ? (
@@ -37,7 +37,7 @@ export const Toaster = () => {
             {toast.meta?.closable && <Toast.CloseTrigger />}
           </Toast.Root>
         )}
-      </ArkToaster>
+      </ChakraToaster>
     </Portal>
   )
 }

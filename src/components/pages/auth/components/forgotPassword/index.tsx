@@ -103,7 +103,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordProps> = ({
           mb="3"
           label={translate("pages.forgotPassword.fields.email", "Email")}
           invalid={!!errors?.email}
-          errorMessage={errors?.email?.message}
+          errorText={errors?.email?.message}
         >
           <Input
             id="email"

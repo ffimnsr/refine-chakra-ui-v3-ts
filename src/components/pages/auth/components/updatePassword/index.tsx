@@ -112,7 +112,7 @@ export const UpdatePasswordPage: React.FC<UpdatePasswordProps> = ({
 
         <Field
           mb="3"
-          lable={translate(
+          label={translate(
             "pages.updatePassword.fields.confirmPassword",
             "Confirm New Password",
           )}

@@ -1,9 +1,8 @@
 import { Popover as ChakraPopover, Portal } from "@chakra-ui/react"
-import { Popover as ArkPopover } from "@ark-ui/react"
 import { CloseButton } from "./close-button"
 import * as React from "react"
 
-interface PopoverContentProps extends ArkPopover.ContentProps {
+interface PopoverContentProps extends ChakraPopover.ContentProps {
   portalled?: boolean
   portalRef?: React.RefObject<HTMLElement>
 }
@@ -15,48 +14,47 @@ export const PopoverContent = React.forwardRef<
   const { portalled = true, portalRef, ...rest } = props
   return (
     <Portal disabled={!portalled} container={portalRef}>
-      <ArkPopover.Positioner>
-        <ArkPopover.Content ref={ref} {...rest} />
-      </ArkPopover.Positioner>
+      <ChakraPopover.Positioner>
+        <ChakraPopover.Content ref={ref} {...rest} />
+      </ChakraPopover.Positioner>
     </Portal>
   )
 })
 
 export const PopoverArrow = React.forwardRef<
   HTMLDivElement,
-  ArkPopover.ArrowProps
+  ChakraPopover.ArrowProps
 >(function PopoverArrow(props, ref) {
   return (
-    <ArkPopover.Arrow {...props} ref={ref}>
-      <ArkPopover.ArrowTip />
-    </ArkPopover.Arrow>
+    <ChakraPopover.Arrow {...props} ref={ref}>
+      <ChakraPopover.ArrowTip />
+    </ChakraPopover.Arrow>
   )
 })
 
 export const PopoverCloseTrigger = React.forwardRef<
   HTMLButtonElement,
-  ArkPopover.CloseTriggerProps
+  ChakraPopover.CloseTriggerProps
 >(function PopoverCloseTrigger(props, ref) {
   return (
-    <ArkPopover.CloseTrigger
-      style={{
-        position: "absolute",
-        top: "1rem",
-        right: "1rem",
-      }}
+    <ChakraPopover.CloseTrigger
+      position="absolute"
+      top="1"
+      insetEnd="1"
       {...props}
       asChild
       ref={ref}
     >
       <CloseButton size="sm" />
-    </ArkPopover.CloseTrigger>
+    </ChakraPopover.CloseTrigger>
   )
 })
 
-export const PopoverTitle = ArkPopover.Title
-export const PopoverDescription = ArkPopover.Description
+export const PopoverTitle = ChakraPopover.Title
+export const PopoverDescription = ChakraPopover.Description
 export const PopoverFooter = ChakraPopover.Footer
 export const PopoverHeader = ChakraPopover.Header
-export const PopoverRoot = ArkPopover.RootProvider
+export const PopoverRoot = ChakraPopover.Root
+export const PopoverRootProvider = ChakraPopover.RootProvider
 export const PopoverBody = ChakraPopover.Body
-export const PopoverTrigger = ArkPopover.Trigger
+export const PopoverTrigger = ChakraPopover.Trigger

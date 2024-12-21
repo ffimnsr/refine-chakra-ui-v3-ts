@@ -1,7 +1,7 @@
 import React from "react"
 import type { NotificationProvider } from "@refinedev/core"
 import { UndoableNotification } from "@components/undoableNotification"
-import { createToaster } from "@ark-ui/react"
+import { createToaster } from "@chakra-ui/react"
 
 export const useNotificationProvider = (): NotificationProvider => {
   const toast = createToaster({

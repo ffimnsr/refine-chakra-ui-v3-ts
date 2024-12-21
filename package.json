@@ -27,7 +27,8 @@
     "dev": "tsup --watch",
     "prepare": "pnpm build",
     "test": "jest --silent=false --verbose=true --passWithNoTests",
-    "types": "node ./shared/generate-declarations.js"
+    "types": "node ./shared/generate-declarations.js",
+    "typegen": "npx @chakra-ui/cli typegen ./src/theme/index.ts"
   },
   "dependencies": {
     "@ark-ui/react": "^4.5.0",

@@ -1,55 +1,53 @@
 import { Drawer as ChakraDrawer, Portal } from "@chakra-ui/react"
-import { Dialog as ArkDialog } from "@ark-ui/react"
 import { CloseButton } from "./close-button"
 import * as React from "react"
 
-interface DrawerContentProps extends ArkDialog.ContentProps {
+interface DrawerContentProps extends ChakraDrawer.ContentProps {
   portalled?: boolean
   portalRef?: React.RefObject<HTMLElement>
+  offset?: ChakraDrawer.ContentProps["padding"]
 }
 
 export const DrawerContent = React.forwardRef<
   HTMLDivElement,
   DrawerContentProps
 >(function DrawerContent(props, ref) {
-  const { children, portalled = true, portalRef, ...rest } = props
+  const { children, portalled = true, portalRef, offset, ...rest } = props
   return (
     <Portal disabled={!portalled} container={portalRef}>
-      <ArkDialog.Positioner>
-        <ArkDialog.Content ref={ref} {...rest} asChild={false}>
+      <ChakraDrawer.Positioner padding={offset}>
+        <ChakraDrawer.Content ref={ref} {...rest} asChild={false}>
           {children}
-        </ArkDialog.Content>
-      </ArkDialog.Positioner>
+        </ChakraDrawer.Content>
+      </ChakraDrawer.Positioner>
     </Portal>
   )
 })
 
 export const DrawerCloseTrigger = React.forwardRef<
   HTMLButtonElement,
-  ArkDialog.CloseTriggerProps
+  ChakraDrawer.CloseTriggerProps
 >(function DrawerCloseTrigger(props, ref) {
   return (
-    <ArkDialog.CloseTrigger
-      style={{
-        position: "absolute",
-        top: "2rem",
-        right: "2rem",
-      }}
+    <ChakraDrawer.CloseTrigger
+      position="absolute"
+      top="2"
+      insetEnd="2"
       {...props}
       asChild
     >
       <CloseButton size="sm" ref={ref} />
-    </ArkDialog.CloseTrigger>
+    </ChakraDrawer.CloseTrigger>
   )
 })
 
-export const DrawerTrigger = ArkDialog.Trigger
-export const DrawerRootProvider = ArkDialog.RootProvider
-export const DrawerRoot = ArkDialog.Root
+export const DrawerTrigger = ChakraDrawer.Trigger
+export const DrawerRoot = ChakraDrawer.Root
+export const DrawerRootProvider = ChakraDrawer.RootProvider
 export const DrawerFooter = ChakraDrawer.Footer
 export const DrawerHeader = ChakraDrawer.Header
 export const DrawerBody = ChakraDrawer.Body
-export const DrawerBackdrop = ArkDialog.Backdrop
-export const DrawerDescription = ArkDialog.Description
-export const DrawerTitle = ArkDialog.Title
+export const DrawerBackdrop = ChakraDrawer.Backdrop
+export const DrawerDescription = ChakraDrawer.Description
+export const DrawerTitle = ChakraDrawer.Title
 export const DrawerActionTrigger = ChakraDrawer.ActionTrigger

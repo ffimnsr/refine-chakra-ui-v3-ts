@@ -20,7 +20,6 @@ import { ColorModeProvider } from "./components/ui/color-mode"
 const App: React.FC = () => {
   return (
     <BrowserRouter>
-      <GitHubBanner />
       <ChakraProvider value={RefineThemes.Default}>
         <ColorModeProvider>
           <Refine

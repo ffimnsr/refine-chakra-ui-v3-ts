@@ -134,7 +134,7 @@ export const Create: React.FC<CreateProps> = (props) => {
   return (
     <Box
       position="relative"
-      bg="chakra-body-bg"
+      bg="bg.panel"
       borderRadius="md"
       px="4"
       py="3"

@@ -5,7 +5,7 @@ import {
   RefineButtonTestIds,
 } from "@refinedev/ui-types"
 
-import { HStack } from "@chakra-ui/react"
+import { HStack, usePopover } from "@chakra-ui/react"
 import { LuTrash } from "react-icons/lu"
 
 import type { DeleteButtonProps } from "../types"
@@ -14,12 +14,11 @@ import {
   PopoverBody,
   PopoverContent,
   PopoverHeader,
-  PopoverRoot,
   PopoverTrigger,
+  PopoverRootProvider,
 } from "@components/ui/popover"
 import { IconButton } from "@components/ui/icon-button"
 import { Button } from "@components/ui/button"
-import { usePopover } from "@ark-ui/react"
 
 /**
  * `<DeleteButton>` uses Chakra UI {@link https://chakra-ui.com/docs/components/button `<Button>`} and {@link https://chakra-ui.com/docs/components/popover `<Popover>`} components.
@@ -70,8 +69,6 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
     invalidates,
   })
 
-  // const [opened, setOpened] = useState(false)
-
   const popover = usePopover({
     positioning: {
       placement: "bottom-start",
@@ -81,7 +78,7 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
   if (hidden) return null
 
   return (
-    <PopoverRoot value={popover} lazyMount>
+    <PopoverRootProvider value={popover} lazyMount>
       <PopoverTrigger asChild>
         {hideText ? (
           <IconButton
@@ -136,6 +133,6 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
           </HStack>
         </PopoverBody>
       </PopoverContent>
-    </PopoverRoot>
+    </PopoverRootProvider>
   )
 }

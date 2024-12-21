@@ -6,6 +6,7 @@ import {
   ProgressCircleRoot,
   ProgressCircleValueText,
 } from "@components/ui/progress-circle"
+import { useColorModeValue } from "@components/ui"
 
 export type UndoableNotificationProps = {
   notificationKey: OpenNotificationParams["key"]
@@ -20,7 +21,11 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
   cancelMutation,
   undoableTimeout = 0,
 }) => {
-  const toast = createToaster()
+  const bgColor = useColorModeValue("gray.50", "gray.900")
+  const toast = createToaster({
+    placement: "bottom-end",
+  })
+
 
   return (
     <Box
@@ -28,7 +33,7 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
       alignItems="center"
       justifyContent="space-between"
       gap={2}
-      bg="chakra-body-bg"
+      bg={bgColor}
       shadow="md"
       minW={320}
       p={2}
@@ -42,7 +47,7 @@ export const UndoableNotification: React.FC<UndoableNotificationProps> = ({
         variant="outline"
         onClick={() => {
           cancelMutation?.()
-          toast.close(notificationKey)
+          toast.dismiss(notificationKey)
         }}
       >
         <LuRotateCw size={18} />

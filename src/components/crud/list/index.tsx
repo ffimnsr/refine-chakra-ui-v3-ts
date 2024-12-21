@@ -90,10 +90,7 @@ export const List: React.FC<ListProps> = (props) => {
         {translate(
           `${identifier}.titles.list`,
           getUserFriendlyName(
-            resource?.meta?.label ??
-              resource?.options?.label ??
-              resource?.label ??
-              identifier,
+            resource?.meta?.label ?? identifier,
             "plural",
           ),
         )}
